@@ -4,7 +4,7 @@ class Database {
     private $port = "3306";
     private $dbName = "projeto2025";
     private $username = "root";
-    private $password = "123456";
+    private $password = "";
     public $conecta;
 
     public function __construct() {
@@ -21,4 +21,3 @@ class Database {
         }
     }
 }
-?>
