@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f3f3f3;
+}
+
+h1, h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    width: 250px;
+}
+
+#aligned-name, #aligned-password {
+    width: 100%;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+}
+
+#btCadastrar {
+    margin-top: 10px;
+    background-color:rgb(28, 226, 104); 
+}
