@@ -6,7 +6,8 @@
         $email = $_POST['cx_email'];
         $senha = $_POST['cx_senha'];
 
-        $resultado = loginUsuario($email, $senha);
+        $userModel = new Usuario();
+        $resultado = $userModel -> loginUsuario($email, $senha);
 
         if ($resultado) {
             $_SESSION['email'] = $email;
