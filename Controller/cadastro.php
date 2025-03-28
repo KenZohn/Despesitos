@@ -4,10 +4,9 @@
 
     if ($_SERVER['REQUEST_METHOD']=='POST'){
         $usuario = $_POST['cx_usuario'];
-        $email = $_POST['cx_email'];
         $senha = $_POST['cx_senha'];
+        $email = $_POST['cx_email'];
 
-        $userModel = new UsuarioModel();
         $resultado = $userModel->cadastrarUsuario($usuario, $senha, $email);
 
         if ($resultado) {

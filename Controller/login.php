@@ -6,11 +6,11 @@
         $email = $_POST['cx_email'];
         $senha = $_POST['cx_senha'];
 
-        $resultado = loginUsuario($usuario, $senha, $email);
+        $resultado = loginUsuario($email, $senha);
 
         if ($resultado) {
             $_SESSION['email'] = $email;
-            header('Location: ../view/principalView.php');
+            header('Location: ../view/menuView.php');
         } else {
             header('Location: ../view/loginView.php');
         }
