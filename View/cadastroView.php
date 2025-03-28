@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="./style.css">
     </head>
     <body>
-        <form class="pure-form pure-form-aligned"  method="POST" action="">
+        <form class="pure-form pure-form-aligned"  method="POST" action="../Controller/cadastro.php">
             <h1>Gastritos</h1>
             <h2>Novo usuário</h2>
             <fieldset>

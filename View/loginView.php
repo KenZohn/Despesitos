@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="./style.css">
     </head>
     <body>
-        <form class="pure-form pure-form-aligned"  method="POST" action="../controller/index.php">
+        <form class="pure-form pure-form-aligned"  method="POST" action="../Controller/index.php">
             <h1>Gastritos</h1>
             <h2>Login</h2>
             <fieldset>
