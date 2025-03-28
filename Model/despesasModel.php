@@ -9,7 +9,7 @@ class Despesas {
         $this->db = new Database();
     }
 
-    // Função para adicionar uma nova despesa
+    // função para adicionar uma nova despesa
     public function adicionarDespesa($descricao, $valor, $categoria, $data) {
         try {
             $sql = "INSERT INTO despesas (descricao, valor, categoria, data) VALUES (:descricao, :valor, :categoria, :data)";
@@ -33,7 +33,7 @@ class Despesas {
         }
     }
 
-    // Função para listar todas as despesas
+    // função para listar todas as despesas
     public function listarDespesas() {
         try {
             $sql = "SELECT * FROM despesas ORDER BY data DESC";
@@ -45,7 +45,7 @@ class Despesas {
         }
     }
 
-    // Função para buscar despesas por categoria
+    // função para buscar despesas por categoria
     public function buscarPorCategoria($categoria) {
         try {
             $sql = "SELECT * FROM despesas WHERE categoria = :categoria ORDER BY data DESC";
@@ -59,7 +59,7 @@ class Despesas {
         }
     }
 
-    // Função para calcular o total de despesas
+    // função para calcular o total das despesas
     public function calcularTotalDespesas() {
         try {
             $sql = "SELECT SUM(valor) AS total FROM despesas";
@@ -71,6 +71,33 @@ class Despesas {
             return 0;
         }
     }
+    // funçao para buscar a despesa por periodo é um filtro que Permite buscar entre duas datas.
+    public function buscarPorPeriodo($inicio, $fim) {
+        try {
+            $sql = "SELECT * FROM despesas WHERE data BETWEEN :inicio AND :fim ORDER BY data DESC";
+            $stmt = $this->db->conecta->prepare($sql);
+            $stmt->bindParam(':inicio', $inicio);
+            $stmt->bindParam(':fim', $fim);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $erro) {
+            error_log($erro->getMessage());
+            return [];
+        }
+    }
+    // para excluir
+    public function excluirDespesa($id) {
+        try {
+            $sql = "DELETE FROM despesas WHERE id = :id";
+            $stmt = $this->db->conecta->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            return $stmt->execute();
+        } catch (PDOException $erro) {
+            error_log($erro->getMessage());
+            return false;
+        }
+    }
+    
 }
 
 ?>
