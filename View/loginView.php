@@ -11,7 +11,7 @@
             <h2>Login</h2>
             <fieldset>
                 <div class="pure-control-group">
-                    <input id="aligned-name" type="text" placeholder="E-mail" name="cx_usuario"/>
+                    <input id="aligned-name" type="text" placeholder="E-mail" name="cx_email"/>
                 </div>
                 <div class="pure-control-group">
                     <input id="aligned-password" type="password" placeholder="Senha" name="cx_senha"/>
