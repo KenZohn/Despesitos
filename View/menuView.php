@@ -31,67 +31,88 @@
                 </li>
             </ul>
         </div>
-        <table class="pure-table pure-table-horizontal">
+
+        <!--
+        <form class="pure-form pure-form-aligned"  method="POST" action="../Controller/index.php">
+            <h2>Gastos</h2>
+            <fieldset>
+                <div class="pure-u-1 pure-u-md-1-3">
+                    <label for="multi-state">Categoria</label>
+                    <select id="multi-state" class="pure-input-1-2">
+                        <option>Alimentação</option>
+                        <option>Transporte</option>
+                        <option>Saúde</option>
+                    </select>
+                </div>
+                <div class="pure-control-group">
+                    <input id="aligned-name" type="text" placeholder="E-mail" name="cx_email"/>
+                </div>
+                <div class="pure-control-group">
+                    <input id="aligned-password" type="password" placeholder="Senha" name="cx_senha"/>
+                </div>
+                <div class="pure-control">
+                    <button type="submit" class="pure-button pure-button-primary" name="bt1">Adicionar</button>
+                </div>
+                
+                <div class="pure-control">
+                    <button type="reset" class="pure-button" id="btCadastrar" name="bt2">Limpar</button>
+                </div>
+            </fieldset>
+        </form>
+        -->
+
+        <table class="pure-table pure-table-horizontal" id="tabela">
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Categoria</th>
-                    <th>Descrição</th>
-                    <th>Data</th>
-                    <th>Valor</th>
-                </tr>
+            <tr>
+                <th>Categoria</th>
+                <th>Descrição</th>
+                <th>Data</th>
+                <th>Valor</th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Alimentação</td>
-                    <td>Marmitex</td>
-                    <td>11/03/2025</td>
-                    <td>R$ 18,00</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Transporte</td>
-                    <td>Gasolina</td>
-                    <td>11/03/2050</td>
-                    <td>R$ 122,22</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Moradia</td>
-                    <td>Aluguel</td>
-                    <td>15/03/2025</td>
-                    <td>R$ 800,00</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Educação</td>
-                    <td>Curso de Cozinheiro</td>
-                    <td>15/03/2025</td>
-                    <td>R$ 800,00</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Saúde</td>
-                    <td>Dipirona</td>
-                    <td>16/03/2025</td>
-                    <td>R$ 32,00</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Lazer</td>
-                    <td>Show do JK</td>
-                    <td>17/03/2025</td>
-                    <td>R$ 100,00</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>Outros</td>
-                    <td>Algo</td>
-                    <td>20/03/2025</td>
-                    <td>R$ 2000,00</td>
-                </tr>
+            <!-- As linhas da tabela serão inseridas aqui -->
             </tbody>
         </table>
+
+        <script>
+            // Exemplo de dados recebidos
+            const dados = [
+                { categoria: "Alimentação", descricao: "Marmitex", data: "11/03/2025", valor: "R$ 18,00" },
+                { categoria: "Transporte", descricao: "Gasolina", data: "11/03/2025", valor: "R$ 122,22" },
+                { categoria: "Moradia", descricao: "Aluguel", data: "15/03/2025", valor: "R$ 800,00" },
+                { categoria: "Educação", descricao: "Curso de Cozinheiro", data: "15/03/2025", valor: "R$ 800,00" },
+                { categoria: "Saúde", descricao: "Dipirona", data: "16/03/2025", valor: "R$ 32,00" },
+                { categoria: "Lazer", descricao: "Show do JK", data: "17/03/2025", valor: "R$ 100,00" },
+                { categoria: "Outros", descricao: "Algo", data: "20/03/2025", valor: "R$ 2000,00" }
+            ];
+
+            // Função para exibir os dados na tabela
+            const tabelaBody = document.querySelector("#tabela tbody");
+
+            dados.forEach(item => {
+                const linha = document.createElement("tr");
+
+                // Cria células para cada propriedade
+                const celulaCategoria = document.createElement("td");
+                celulaCategoria.textContent = item.categoria;
+                linha.appendChild(celulaCategoria);
+
+                const celulaDescricao = document.createElement("td");
+                celulaDescricao.textContent = item.descricao;
+                linha.appendChild(celulaDescricao);
+
+                const celulaData = document.createElement("td");
+                celulaData.textContent = item.data;
+                linha.appendChild(celulaData);
+
+                const celulaValor = document.createElement("td");
+                celulaValor.textContent = item.valor;
+                linha.appendChild(celulaValor);
+
+                // Adiciona a linha na tabela
+                tabelaBody.appendChild(linha);
+            });
+        </script>
     </body>
 </html>
