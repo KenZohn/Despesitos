@@ -1,4 +1,4 @@
-body {
+.loginCadastro {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,17 @@ body {
     background-color: #f3f3f3;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+}
+
 h1, h2 {
+    font-family: 'Courier New', Courier, monospace;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,11 +32,38 @@ form {
 }
 
 button {
+    margin-top: 10px;
     width: 100%;
     padding: 10px;
 }
 
-#btCadastrar {
-    margin-top: 10px;
-    background-color:rgb(28, 226, 104); 
+.btLoginCadastro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#btCriarConta {
+    width: 50%;
+    font-size: 14px;
+    margin-top: 0px;
+    background-color:rgb(67, 156, 101);
+}
+
+#btVoltar {
+    width: 50%;
+    font-size: 14px;
+    margin-top: 0px;
+    background-color:rgb(84, 84, 84);
+}
+
+.linha-divisoria {
+    border: 0;
+    height: 2px;
+    background: #5c5c5c;
+    margin: 20px 0;
+}
+
+#categoriaBox {
+    width: 100%;
 }

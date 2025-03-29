@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Gastrite</title>
+        <title>Despesitos</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
         <link rel="stylesheet" href="./style.css">
     </head>
-    <body>
+    <body class="loginCadastro">
         <form class="pure-form pure-form-aligned"  method="POST" action="../Controller/cadastro.php">
-            <h1>Gastritos</h1>
-            <h2>Novo usuário</h2>
+            <h1>Despesitos</h1>
+            <h2>Criar conta</h2>
             <fieldset>
                 <div class="pure-control-group">
                     <input id="aligned-name" type="text" placeholder="Nome" name="cx_nome"/>
@@ -22,8 +22,11 @@
                 <div class="pure-control">
                     <button type="submit" class="pure-button pure-button-primary" name="bt1">Criar</button>
                 </div>
-                <div class="pure-control">
-                    <button type="button" onclick="window.location.href='../View/loginView.php';" class="pure-button" id="btCadastrar" name="bt2">Cancelar</button>
+
+                <hr class="linha-divisoria">
+
+                <div class="pure-control btLoginCadastro">
+                    <button type="button" onclick="window.location.href='../View/loginView.php';" class="pure-button pure-button-primary" id="btVoltar" name="bt2">Voltar</button>
                 </div>
             </fieldset>
         </form>
