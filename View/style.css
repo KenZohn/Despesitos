@@ -14,6 +14,7 @@
     align-items: center;
     gap: 20px;
     padding: 30px;
+    background-color: #f3f3f3;
 }
 
 h1, h2 {
@@ -64,6 +65,33 @@ button {
     margin: 20px 0;
 }
 
-#categoriaBox {
+.botaoExcluir {
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    background-color:rgb(233, 103, 103);
+}
+
+#categoria-selecao {
+    padding-bottom: 10px;
+}
+
+#input-categoria {
     width: 100%;
+}
+
+#data-selecao {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+}
+
+.input-selecao {
+    width: 100%;
+}
+
+#mes {
+    margin-left: 5px;
+    margin-right: 5px;
 }

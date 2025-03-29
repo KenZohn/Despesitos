@@ -33,25 +33,32 @@
         </div>
 
         <div class="container">
-            <form class="pure-form pure-form-aligned"  method="POST" action="../Controller/index.php">
-                <h2>Gastos</h2>
+            <form class="pure-form pure-form-aligned"  method="POST" action="">
                 <fieldset>
-                    <div class="pure-u-1 pure-u-md-1-3" id="categoriaBox">
-                        <label for="multi-state">Categoria</label>
-                        <select id="multi-state" class="pure-input-1-2" name="cx_categoria">
+                    <div class="pure-control-group">
+                        <input id="aligned-name" type="text" placeholder="Descrição" name="cx_descricao" required/>
+                    </div>
+
+                    <div class="pure-u-1 pure-u-md-1-3" id="categoria-selecao">
+                        <select id="input-categoria" class="pure-input-1-2" name="cx_categoria">
                             <option>Alimentação</option>
-                            <option>Transporte</option>
+                            <option>Educação</option>
+                            <option>Lazer</option>
+                            <option>Moradia</option>
                             <option>Saúde</option>
+                            <option>Transporte</option>
+                            <option>Outros</option>
                         </select>
                     </div>
-                    <div class="pure-control-group">
-                        <input id="aligned-name" type="text" placeholder="Descrição" name="cx_descricao"/>
+
+                    <div id="data-selecao">
+                        <select id="dia" class="input-selecao" name="cx_dia"></select>
+                        <select id="mes" class="input-selecao" name="cx_mes"></select>
+                        <select id="ano" class="input-selecao" name="cx_ano"></select>
                     </div>
+
                     <div class="pure-control-group">
-                        <input id="aligned-name" type="text" placeholder="Data" name="cx_data"/>
-                    </div>
-                    <div class="pure-control-group">
-                        <input id="aligned-name" type="text" placeholder="Valor" name="cx_valor"/>
+                        <input id="aligned-name" type="text" placeholder="Valor" name="cx_valor" required/>
                     </div>
                     <div class="pure-control">
                         <button type="submit" class="pure-button pure-button-primary" name="bt1">Adicionar</button>
@@ -66,10 +73,11 @@
             <table class="pure-table pure-table-horizontal" id="tabela">
                 <thead>
                 <tr>
-                    <th>Categoria</th>
                     <th>Descrição</th>
+                    <th>Categoria</th>
                     <th>Data</th>
                     <th>Valor</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -77,45 +85,6 @@
                 </tbody>
             </table>
         </div>
+        <script src="script.js"></script>
     </body>
 </html>
-
-<script>
-    // Exemplo de dados recebidos
-    const dados = [
-        { categoria: "Alimentação", descricao: "Marmitex", data: "11/03/2025", valor: "R$ 18,00" },
-        { categoria: "Transporte", descricao: "Gasolina", data: "11/03/2025", valor: "R$ 122,22" },
-        { categoria: "Moradia", descricao: "Aluguel", data: "15/03/2025", valor: "R$ 800,00" },
-        { categoria: "Educação", descricao: "Curso de Cozinheiro", data: "15/03/2025", valor: "R$ 800,00" },
-        { categoria: "Saúde", descricao: "Dipirona", data: "16/03/2025", valor: "R$ 32,00" },
-        { categoria: "Lazer", descricao: "Show do JK", data: "17/03/2025", valor: "R$ 100,00" },
-        { categoria: "Outros", descricao: "Algo", data: "20/03/2025", valor: "R$ 2000,00" }
-    ];
-
-    // Função para exibir os dados na tabela
-    const tabelaBody = document.querySelector("#tabela tbody");
-
-    dados.forEach(item => {
-        const linha = document.createElement("tr");
-
-        // Cria células para cada propriedade
-        const celulaCategoria = document.createElement("td");
-        celulaCategoria.textContent = item.categoria;
-        linha.appendChild(celulaCategoria);
-
-        const celulaDescricao = document.createElement("td");
-        celulaDescricao.textContent = item.descricao;
-        linha.appendChild(celulaDescricao);
-
-        const celulaData = document.createElement("td");
-        celulaData.textContent = item.data;
-        linha.appendChild(celulaData);
-
-        const celulaValor = document.createElement("td");
-        celulaValor.textContent = item.valor;
-        linha.appendChild(celulaValor);
-
-        // Adiciona a linha na tabela
-        tabelaBody.appendChild(linha);
-    });
-</script>
