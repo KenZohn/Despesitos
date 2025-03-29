@@ -27,7 +27,7 @@
                     <a href="#" class="pure-menu-link">Relatórios</a>
                 </li>
                 <li class="pure-menu-item">
-                    <a href="../controller/menu.php" class="pure-menu-link">Sair</a>
+                    <a href="../controller/logout.php" class="pure-menu-link">Sair</a>
                 </li>
             </ul>
         </div>
