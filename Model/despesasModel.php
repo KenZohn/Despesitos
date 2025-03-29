@@ -71,18 +71,44 @@ class Despesas {
             return 0;
         }
     }
-    // funçao para buscar a despesa por periodo é um filtro que Permite buscar entre duas datas.
-    public function buscarPorPeriodo($inicio, $fim) {
+    // função para calcular o total das despesas
+    public function calcularTotalDespesas() {
         try {
-            $sql = "SELECT * FROM despesas WHERE data BETWEEN :inicio AND :fim ORDER BY data DESC";
-            $stmt = $this->db->conecta->prepare($sql);
-            $stmt->bindParam(':inicio', $inicio);
-            $stmt->bindParam(':fim', $fim);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $sql = "SELECT SUM(valor) AS total FROM despesas";
+            $stmt = $this->db->conecta->query($sql);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['total'] ?? 0;
         } catch (PDOException $erro) {
             error_log($erro->getMessage());
-            return [];
+            return 0;
+        }
+    }
+    public function buscarPorMes($mes, $ano) {
+        // Valida os parâmetros fornecidos
+        if ($mes < 1 || $mes > 12 || $ano < 1900 || $ano > date('Y')) {
+            throw new InvalidArgumentException("Mês ou ano inválidos.");
+        }
+    
+        try {
+            // Consulta SQL para buscar despesas por mês e ano
+            $sql = "SELECT * FROM despesas WHERE MONTH(data) = :mes AND YEAR(data) = :ano ORDER BY data DESC";
+            $stmt = $this->db->conecta->prepare($sql);
+            $stmt->bindParam(':mes', $mes, PDO::PARAM_INT);
+            $stmt->bindParam(':ano', $ano, PDO::PARAM_INT);
+            $stmt->execute();
+    
+            // Recupera os resultados
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            // Verifica se há resultados para o mês/ano
+            if (empty($result)) {
+                return "Nenhuma despesa encontrada para o mês $mes/$ano.";
+            }
+    
+            return $result; // Retorna as despesas encontradas
+        } catch (PDOException $erro) {
+            error_log($erro->getMessage()); // Registra o erro no log
+            return []; // Retorna um array vazio em caso de erro
         }
     }
     // para excluir
