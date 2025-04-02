@@ -71,18 +71,7 @@ class Despesas {
             return 0;
         }
     }
-    // função para calcular o total das despesas
-    public function calcularTotalDespesas() {
-        try {
-            $sql = "SELECT SUM(valor) AS total FROM despesas";
-            $stmt = $this->db->conecta->query($sql);
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result['total'] ?? 0;
-        } catch (PDOException $erro) {
-            error_log($erro->getMessage());
-            return 0;
-        }
-    }
+
     public function buscarPorMes($mes, $ano) {
         // Valida os parâmetros fornecidos
         if ($mes < 1 || $mes > 12 || $ano < 1900 || $ano > date('Y')) {

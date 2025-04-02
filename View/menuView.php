@@ -56,7 +56,7 @@
                     </fieldset>
                 </form>
             
-                <form class="pure-form pure-form-aligned"  method="POST" action="">
+                <form class="pure-form pure-form-aligned"  method="POST" action="../Controller/add.php">
                     <fieldset>
                         <div class="pure-control-group">
                             <input id="aligned-name" type="text" placeholder="Descrição" name="cx_descricao" required/>
