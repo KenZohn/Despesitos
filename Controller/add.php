@@ -19,10 +19,11 @@
         $descricaoModel = new Despesas();
         $resultado = $descricaoModel -> adicionarDespesa($descricao, $valor, $categoria, $data);
 
-        // TODO: incluir sistema de mensagens de confirmação (mensagem flash com session)
+        // TODO: Melhorar sistema de mensagens
         if ($resultado) {
             header('Location: ../view/menuView.php');
         } else {
+            $_SESSION['mensagem'] = "Erro: Falha ao adicionar a despesa.";
             header('Location: ../view/menuView.php');
         }
 

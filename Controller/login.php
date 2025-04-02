@@ -13,6 +13,7 @@
             $_SESSION['email'] = $email;
             header('Location: ../view/menuView.php');
         } else {
+            $_SESSION['mensagem'] = "Erro: Email ou senha inválidos.";
             header('Location: ../view/loginView.php');
         }
 
