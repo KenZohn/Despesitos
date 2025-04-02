@@ -29,8 +29,19 @@
         </form>
 
         <?php
+        session_start();
+
         if (isset($_GET['error'])) {
             echo "Login falhou. Tente novamente.";
+            
+        } 
+
+        // Exibe mensagens do sistema
+        if (isset($_SESSION['mensagem'])) {
+            echo "<script>alert('" . $_SESSION['mensagem'] . "');</script>";
+
+            // Limpa a mensagem
+            unset($_SESSION['mensagem']); 
         }
         ?>
     </body>
