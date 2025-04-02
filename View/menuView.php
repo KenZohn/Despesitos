@@ -1,3 +1,7 @@
+<?php
+    require_once '../controller/sessionCheck.php';
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
