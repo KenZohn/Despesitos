@@ -1,17 +1,18 @@
-.main-menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    background-color: #f3f3f3;
-}
-
 .loginCadastro {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    background-color: #f3f3f3;
+}
+
+
+.main-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     background-color: #f3f3f3;
 }
 
@@ -116,4 +117,24 @@ button {
 
 .total-despesa {
     padding-top: 20px;
+}
+
+
+.container-consulta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vh;
+    padding: 30px;
+}
+
+.consulta-form {
+    justify-content: center;
+    align-items: center;
+    width: 100vh;
+}
+
+.data-form {
+    min-width: 200px;
 }

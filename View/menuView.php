@@ -24,7 +24,7 @@
                     <a href="#" class="pure-menu-link">Adicionar</a>
                 </li>
                 <li class="pure-menu-item">
-                    <a href="#" class="pure-menu-link">Detalhes</a>
+                    <a href="consultaView.php" class="pure-menu-link">Detalhes</a>
                 </li>
                 <li class="pure-menu-item">
                     <a href="#" class="pure-menu-link">Relatórios</a>
