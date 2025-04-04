@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 29/03/2025 às 00:08
+-- Tempo de geração: 04/04/2025 às 15:26
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -32,15 +32,16 @@ CREATE TABLE `despesas` (
   `descricao` varchar(255) NOT NULL,
   `valor` decimal(10,2) NOT NULL,
   `categoria` varchar(100) NOT NULL,
-  `data` date NOT NULL
+  `data` date NOT NULL,
+  `cod_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `despesas`
 --
 
-INSERT INTO `despesas` (`id`, `descricao`, `valor`, `categoria`, `data`) VALUES
-(1, 'Compras no supermercado', 200.50, 'Alimentação', '2025-03-28');
+INSERT INTO `despesas` (`id`, `descricao`, `valor`, `categoria`, `data`, `cod_usuario`) VALUES
+(1, 'Compras no supermercado', 200.50, 'Alimentação', '2025-03-28', 0);
 
 -- --------------------------------------------------------
 
@@ -54,6 +55,15 @@ CREATE TABLE `usuario` (
   `senha` varchar(255) NOT NULL,
   `email` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `usuario`
+--
+
+INSERT INTO `usuario` (`cod_usuario`, `nome`, `senha`, `email`) VALUES
+(1, 'Thais Ferreira Capucho', '$2y$10$8SVzI4fTK.RECnYFg30Db.DFbBSmdq3jdc1XAF/dIHolms7fjj1qi', 'Thais.capucho@fatec.sp.gov.br'),
+(2, 'Thais Ferreira Capucho', '$2y$10$INKl9GUmF8QjQ4ftCnFlTejKj7AuC24LU3hyvrEJH8HVoOc.j9eHO', 'Thais.capucho@fatec.sp.gov.br'),
+(3, '', '$2y$10$vd01DZwZWmzRMVqdKmb6IOyZtCiKTlsmjXFWBdhw1HQ5b5stfjTTy', '');
 
 --
 -- Índices para tabelas despejadas
@@ -85,7 +95,7 @@ ALTER TABLE `despesas`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
