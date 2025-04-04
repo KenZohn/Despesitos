@@ -11,13 +11,13 @@
 
     <link rel="stylesheet" href="./css/styleAdicionar.css">
 </head>
-<body>
+<body onload="exibirTabela()">
     <div class="menu-lateral">
         <h2>Despesitos</h2>
         <h3>Menu</h3>
         <a href="#">Adicionar</a>
         <a href="./consultaView.php">Consultar</a>
-        <a href="#">Sair</a>
+        <a href="../controller/logout.php">Sair</a>
     </div>
 
     <div class="container-esquerda">
