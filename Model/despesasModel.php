@@ -10,14 +10,15 @@ class Despesas {
     }
 
     // função para adicionar uma nova despesa
-    public function adicionarDespesa($descricao, $valor, $categoria, $data) {
+    public function adicionarDespesa($descricao, $valor, $categoria, $data, $cod_usuario) {
         try {
-            $sql = "INSERT INTO despesas (descricao, valor, categoria, data) VALUES (:descricao, :valor, :categoria, :data)";
+            $sql = "INSERT INTO despesas (descricao, valor, categoria, data, cod_usuario) VALUES (:descricao, :valor, :categoria, :data, :cod_usuario)";
             $stmt = $this->db->conecta->prepare($sql);
             $stmt->bindParam(':descricao', $descricao);
             $stmt->bindParam(':valor', $valor);
             $stmt->bindParam(':categoria', $categoria);
             $stmt->bindParam(':data', $data);
+            $stmt->bindParam(':cod_usuario', $cod_usuario)
 
             if ($stmt->execute()) {
                 echo "Despesa adicionada com sucesso!";

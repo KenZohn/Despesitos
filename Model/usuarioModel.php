@@ -9,12 +9,12 @@ class Usuario {
         $this->db = new Database();
     }
 
-    // Método para validar o formato do email
+    //   validar o formato do email
     public function validarEmail($email) {
         return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
     }
 
-    // Método para cadastrar usuário
+    //  cadastrar usuário
     public function cadastrarUsuario($nome, $senha, $email) {
         try {
             $senhaHash = password_hash($senha, PASSWORD_DEFAULT); // Hash para segurança
@@ -39,7 +39,7 @@ class Usuario {
         }
     }
 
-    // Método para autenticar usuário (login)
+    //  autenticar usuário (login)
     public function loginUsuario($email, $senha) {
         try {
             $sql = "SELECT senha FROM usuario WHERE email = :email";
@@ -61,4 +61,21 @@ class Usuario {
             return false;
         }
     }
+    //  buscar o usuario por email
+    public function buscarIdPorEmail($email) {
+        try {
+            $sql = "SELECT id FROM usuarios WHERE email = :email";
+            $stmt = $this->db->conecta->prepare($sql);
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+    
+            // Verifica o resultado da consulta
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $resultado['id'] ?? null; // Retorna o ID ou null se não encontrado
+        } catch (PDOException $erro) {
+            error_log($erro->getMessage()); // Registra o erro no log
+            return null; // Retorna null em caso de erro
+        }
+    }
+    
 }
