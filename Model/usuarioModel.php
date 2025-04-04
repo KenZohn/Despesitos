@@ -64,7 +64,7 @@ class Usuario {
     //  buscar o usuario por email
     public function buscarIdPorEmail($email) {
         try {
-            $sql = "SELECT id FROM usuarios WHERE email = :email";
+            $sql = "SELECT id FROM usuario WHERE email = :email";
             $stmt = $this->db->conecta->prepare($sql);
             $stmt->bindParam(':email', $email);
             $stmt->execute();

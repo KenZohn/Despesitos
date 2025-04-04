@@ -18,7 +18,7 @@ class Despesas {
             $stmt->bindParam(':valor', $valor);
             $stmt->bindParam(':categoria', $categoria);
             $stmt->bindParam(':data', $data);
-            $stmt->bindParam(':cod_usuario', $cod_usuario)
+            $stmt->bindParam(':cod_usuario', $cod_usuario);
 
             if ($stmt->execute()) {
                 echo "Despesa adicionada com sucesso!";
