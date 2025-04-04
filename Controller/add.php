@@ -12,7 +12,7 @@
         $mes = $_POST['cx_mes'];
         $ano = $_POST['cx_ano'];
 
-        $data = "$dia/$mes/$ano";
+        $data = "$ano/$mes/$dia";
 
         $valor = $_POST['cx_valor'];
 
