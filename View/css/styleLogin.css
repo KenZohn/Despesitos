@@ -1,0 +1,150 @@
+.custom-restricted-width {
+    width: 10em;
+}
+
+#side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.loginCadastro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f3f3f3;
+}
+
+
+.main-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #f3f3f3;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vh;
+    gap: 20px;
+    padding: 30px;
+}
+
+.horizontal-div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+h1, h2 {
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    width: 250px;
+}
+
+#aligned-name, #aligned-password {
+    width: 100%;
+}
+
+button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+}
+
+.btLoginCadastro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#btCriarConta {
+    width: 50%;
+    font-size: 14px;
+    margin-top: 0px;
+    background-color:rgb(67, 156, 101);
+}
+
+#btVoltar {
+    width: 50%;
+    font-size: 14px;
+    margin-top: 0px;
+    background-color:rgb(84, 84, 84);
+}
+
+.linha-divisoria {
+    border: 0;
+    height: 2px;
+    background: #5c5c5c;
+    margin: 20px 0;
+}
+
+.botaoExcluir {
+    display: flex;
+    margin: 0;
+    height: 20px;
+    font-size: 12px;
+    justify-content: center;
+    align-items: center;
+    background-color:rgb(233, 103, 103);
+}
+
+#categoria-selecao {
+    padding-bottom: 10px;
+}
+
+#input-categoria {
+    width: 100%;
+}
+
+#data-selecao {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+}
+
+.input-selecao {
+    width: 100%;
+}
+
+#mes {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.total-despesa {
+    padding-top: 20px;
+}
+
+
+.container-consulta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vh;
+    padding: 30px;
+}
+
+.consulta-form {
+    justify-content: center;
+    align-items: center;
+    width: 100vh;
+}
+
+.data-form {
+    min-width: 200px;
+}

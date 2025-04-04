@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex; /* Organiza os elementos em linha */
+    min-height: 100vh; /* Garante altura mínima para o corpo */
+}
+
+.menu-lateral {
+    width: 130px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0; /* Mantém o tamanho fixo do menu */
+}
+
+.menu-lateral a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin: 15px 0;
+}
+
+.menu-lateral a:hover {
+    text-decoration: underline;
+}
+
+
+<!--Form-->
+
+form {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.formTitle {
+    margin-top: 0;
+}
+
+
+
+input, select, button {
+    width: 100%;
+    padding: 10px; /* Aumente o espaçamento interno */
+    margin-top: 5px;
+    margin-bottom: 0px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Garante que o padding não expanda o tamanho do input */
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+
+.container-esquerda {
+    flex: 0.5; /* Ocupa metade da largura */
+    display: flex;
+    flex-direction: column; /* Organiza os formulários em coluna (verticalmente) */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.form-container {
+    margin-bottom: 20px; /* Espaço entre os formulários */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.container-direita {
+    flex: 1; /* Ocupa metade da largura */
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border-top: 1px solid #ddd; /* Adiciona apenas bordas horizontais */
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+    color: white;
+}
+
+td {
+    background-color: #ffffff;
+}
+
+td {
+    text-align: left; /* Mantém o texto alinhado à esquerda */
+    padding: 8px; /* Adiciona espaçamento interno */
+}
+
+table button {
+    display: block; /* Garante que o botão seja tratado como um elemento de bloco */
+    margin: auto; /* Centraliza o botão horizontalmente */
+    padding: 5px 0px;
+    background-color: #ffffff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+table button:hover {
+    background-color: #dcdcdc;
+}

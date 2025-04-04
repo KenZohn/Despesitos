@@ -14,7 +14,7 @@ const tabelaBody = document.querySelector("#tabela tbody");
 
 dados.forEach(item => {
     const linha = document.createElement("tr");
-    linha.setAttribute("data-id", item.id);
+    linha.setAttribute("data-id", item.id); // Define o ID da linha
 
     // Cria células para cada propriedade
     const celulaDescricao = document.createElement("td");
@@ -35,18 +35,46 @@ dados.forEach(item => {
 
     const celulaExcluir = document.createElement("td");
     celulaExcluir.className = "celulaExcluir";
+
     const botaoExcluir = document.createElement("button");
-    botaoExcluir.textContent = "Excluir";
     botaoExcluir.className = "botaoExcluir";
-    botaoExcluir.addEventListener("click", function () {
+
+    // Adicionando um ícone como imagem
+    const iconeExcluir = document.createElement("img");
+    iconeExcluir.src = "./icons/trash.png"; // Caminho do ícone
+    iconeExcluir.alt = "Excluir";
+    iconeExcluir.style.width = "20px";
+    botaoExcluir.appendChild(iconeExcluir);
+
+    // Adicionando o evento click
+    botaoExcluir.addEventListener("click", async function () {
         const linha = botaoExcluir.parentNode.parentNode;
-        linha.parentNode.removeChild(linha);
+        const id = linha.getAttribute("data-id"); // Obtém o ID da linha
+        console.log(`Excluindo o item com ID: ${id}`);
+
+        // Chamar o controller via API (por exemplo, usando Fetch)
+        try {
+            const response = await fetch(`/controller/delete/${id}`, { // URL do seu endpoint
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                console.log('Item deletado com sucesso!');
+                linha.parentNode.removeChild(linha); // Remove a linha da tabela
+            } else {
+                console.error('Erro ao deletar o item:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Erro ao conectar com o servidor:', error);
+        }
     });
+
     celulaExcluir.appendChild(botaoExcluir);
     linha.appendChild(celulaExcluir);
-    
+
     tabelaBody.appendChild(linha);
 });
+
 
 
 
@@ -100,7 +128,7 @@ function atualizarDias() {
     const diasNoMes = calcularDias(mesSelecionado, anoSelecionado);
 
     // Limpa os dias existentes
-    diaSelect.innerHTML = '<option value="" disabled>Dia</option>';
+    diaSelect.innerHTML = '';
 
     // Popula os dias novamente
     for (let i = 1; i <= diasNoMes; i++) {
