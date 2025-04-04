@@ -64,14 +64,14 @@ class Usuario {
     //  buscar o usuario por email
     public function buscarIdPorEmail($email) {
         try {
-            $sql = "SELECT id FROM usuario WHERE email = :email";
+            $sql = "SELECT cod_usuario FROM usuario WHERE email = :email";
             $stmt = $this->db->conecta->prepare($sql);
             $stmt->bindParam(':email', $email);
             $stmt->execute();
     
             // Verifica o resultado da consulta
             $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $resultado['id'] ?? null; // Retorna o ID ou null se não encontrado
+            return $resultado['cod_usuario'] ?? null; // Retorna o ID ou null se não encontrado
         } catch (PDOException $erro) {
             error_log($erro->getMessage()); // Registra o erro no log
             return null; // Retorna null em caso de erro

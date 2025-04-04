@@ -10,7 +10,8 @@
         $resultado = $userModel -> loginUsuario($email, $senha);
 
         if ($resultado) {
-            $_SESSION['email'] = $email;
+            $id = $userModel ->buscarIdPorEmail($email);
+            $_SESSION['cod_usuario'] = $id;
             header('Location: ../view/menuView.php');
         } else {
             $_SESSION['mensagem'] = "Erro: Email ou senha inválidos.";
