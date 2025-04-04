@@ -1,5 +1,5 @@
 <?php
-    //require_once '../controller/sessionCheck.php';
+    require_once '../controller/sessionCheck.php';
 ?>
 
 <!DOCTYPE html>
