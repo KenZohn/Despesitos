@@ -35,16 +35,28 @@ class Despesas {
     }
 
     // função para listar todas as despesas
-    public function listarDespesas() {
+    public function listarDespesas($cod_usuario) {
         try {
-            $sql = "SELECT * FROM despesas ORDER BY data DESC";
-            $stmt = $this->db->conecta->query($sql);
+            // Corrige a consulta SQL
+            $sql = "SELECT * FROM despesas WHERE cod_usuario = :cod_usuario ORDER BY data DESC";
+    
+            // Usa prepare para consultas com parâmetros
+            $stmt = $this->db->conecta->prepare($sql);
+    
+            // Faz o bind do parâmetro
+            $stmt->bindParam(':cod_usuario', $cod_usuario, PDO::PARAM_INT);
+    
+            // Executa a consulta
+            $stmt->execute();
+    
+            // Retorna os resultados como array associativo
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $erro) {
+            // Registra o erro no log
             error_log($erro->getMessage());
             return [];
         }
-    }
+    }    
 
     // função para buscar despesas por categoria
     public function buscarPorCategoria($categoria) {

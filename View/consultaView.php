@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="./css/styleAdicionar.css">
 </head>
-<body class="main-menu" onload="exibirTabela()">
+<body class="main-menu" onload="atualizarTabela()">
     <div class="menu-lateral">
         <h2>Despesitos</h2>
         <h3>Menu</h3>
@@ -61,6 +61,6 @@
             </tbody>
         </table>
     </div>
-    <script src="script.js"></script>
+    <script src="script.js?v=2.0"></script>
 </body>
 </html>

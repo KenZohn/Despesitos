@@ -1,17 +1,10 @@
-// Exemplo de dados recebidos
-const dados = [
-    { id: 1, categoria: "Alimentação", descricao: "Marmitex", data: "11/03/2025", valor: "R$ 18,00" },
-    { id: 2, categoria: "Transporte", descricao: "Gasolina", data: "11/03/2025", valor: "R$ 122,22" },
-    { id: 3, categoria: "Moradia", descricao: "Aluguel", data: "15/03/2025", valor: "R$ 800,00" },
-    { id: 4, categoria: "Educação", descricao: "Curso de Cozinheiro", data: "15/03/2025", valor: "R$ 800,00" },
-    { id: 5, categoria: "Saúde", descricao: "Dipirona", data: "16/03/2025", valor: "R$ 32,00" },
-    { id: 6, categoria: "Lazer", descricao: "Show do JK", data: "17/03/2025", valor: "R$ 100,00" },
-    { id: 7, categoria: "Outros", descricao: "Algo", data: "20/03/2025", valor: "R$ 2000,00" }
-];
-
-function exibirTabela() {
+function exibirTabela(dados) {
     // Função para exibir os dados na tabela
     const tabelaBody = document.querySelector("#tabela tbody");
+
+    while (tabelaBody.firstChild) {
+        tabelaBody.removeChild(tabelaBody.firstChild);
+    }
 
     dados.forEach(item => {
         const linha = document.createElement("tr");
@@ -172,7 +165,7 @@ diaSelect.value = diaAtual;
 
 // Atualizar tabela
 function atualizarTabela() {
-    fetch('/meuController', { // Altere para a URL do seu controller
+    fetch('../controller/listar.php', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -180,9 +173,7 @@ function atualizarTabela() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Resposta do controller:', data);
-        
-        // Aqui você pode manipular os dados retornados
+        exibirTabela(data)
     })
     .catch(error => {
         console.error('Erro ao chamar o controller:', error);
