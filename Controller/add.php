@@ -2,8 +2,6 @@
     session_start();
     require_once '../model/despesasModel.php';
 
-    // TODO: Trazer id do usuário para link com despesa, pegar id do usuário pelo email
-
     if ($_SERVER['REQUEST_METHOD']=='POST'){
         $descricao = $_POST['cx_descricao'];
         $categoria = $_POST['cx_categoria'];
