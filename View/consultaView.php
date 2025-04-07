@@ -26,12 +26,43 @@
             <form method="POST" action="../Controller/add.php">
                 <label>Mês</label>
                 <div style="display: flex; gap: 5px;">
-                    <select id="mes" name="cx_mes" required></select>
+                    <select id="mesConsulta" name="cx_mes" onchange="" required>
+                        <option>Todos</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                    </select>
                 </div>
                 <label>Ano</label>
                 <div style="display: flex; gap: 5px;">
-                    <select id="ano" name="cx_ano" required></select>
+                    <select id="anoConsulta" name="cx_ano" onchange="" required>
+                        <option>Todos</option>
+                        <option>2023</option>
+                        <option>2024</option>
+                        <option>2025</option>
+                        <option>2026</option>
+                    </select>
                 </div>
+                <label for="categoria">Categoria</label>
+                <select id="categoriaConsulta" name="cx_categoria" onchange="" required>
+                    <option>Todos</option>
+                    <option>Alimentação</option>
+                    <option>Educação</option>
+                    <option>Lazer</option>
+                    <option>Moradia</option>
+                    <option>Saúde</option>
+                    <option>Transporte</option>
+                    <option>Outros</option>
+                </select>
             </form>
         </div>
 

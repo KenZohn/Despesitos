@@ -24,7 +24,11 @@ function exibirTabela(dados) {
         linha.appendChild(celulaData);
 
         const celulaValor = document.createElement("td");
-        celulaValor.textContent = item.valor;
+        const valorFormatado = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(item.valor);
+        celulaValor.textContent = valorFormatado;
         linha.appendChild(celulaValor);
 
         const celulaExcluir = document.createElement("td");
@@ -67,6 +71,23 @@ function exibirTabela(dados) {
         linha.appendChild(celulaExcluir);
 
         tabelaBody.appendChild(linha);
+    });
+};
+
+// Atualizar tabela
+function atualizarTabela() {
+    fetch('../controller/listar.php', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        exibirTabela(data)
+    })
+    .catch(error => {
+        console.error('Erro ao chamar o controller:', error);
     });
 };
 
@@ -161,21 +182,3 @@ atualizarDias();
 
 // Define o valor padrão selecionado no combobox de dias
 diaSelect.value = diaAtual;
-
-
-// Atualizar tabela
-function atualizarTabela() {
-    fetch('../controller/listar.php', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        exibirTabela(data)
-    })
-    .catch(error => {
-        console.error('Erro ao chamar o controller:', error);
-    });
-};
