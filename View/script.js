@@ -1,79 +1,95 @@
-// Exemplo de dados recebidos
-const dados = [
-    { id: 1, categoria: "Alimentação", descricao: "Marmitex", data: "11/03/2025", valor: "R$ 18,00" },
-    { id: 2, categoria: "Transporte", descricao: "Gasolina", data: "11/03/2025", valor: "R$ 122,22" },
-    { id: 3, categoria: "Moradia", descricao: "Aluguel", data: "15/03/2025", valor: "R$ 800,00" },
-    { id: 4, categoria: "Educação", descricao: "Curso de Cozinheiro", data: "15/03/2025", valor: "R$ 800,00" },
-    { id: 5, categoria: "Saúde", descricao: "Dipirona", data: "16/03/2025", valor: "R$ 32,00" },
-    { id: 6, categoria: "Lazer", descricao: "Show do JK", data: "17/03/2025", valor: "R$ 100,00" },
-    { id: 7, categoria: "Outros", descricao: "Algo", data: "20/03/2025", valor: "R$ 2000,00" }
-];
+function exibirTabela(dados) {
+    // Função para exibir os dados na tabela
+    const tabelaBody = document.querySelector("#tabela tbody");
 
-// Função para exibir os dados na tabela
-const tabelaBody = document.querySelector("#tabela tbody");
+    while (tabelaBody.firstChild) {
+        tabelaBody.removeChild(tabelaBody.firstChild);
+    }
 
-dados.forEach(item => {
-    const linha = document.createElement("tr");
-    linha.setAttribute("data-id", item.id); // Define o ID da linha
+    dados.forEach(item => {
+        const linha = document.createElement("tr");
+        linha.setAttribute("data-id", item.id); // Define o ID da linha
 
-    // Cria células para cada propriedade
-    const celulaDescricao = document.createElement("td");
-    celulaDescricao.textContent = item.descricao;
-    linha.appendChild(celulaDescricao);
+        // Cria células para cada propriedade
+        const celulaDescricao = document.createElement("td");
+        celulaDescricao.textContent = item.descricao;
+        linha.appendChild(celulaDescricao);
 
-    const celulaCategoria = document.createElement("td");
-    celulaCategoria.textContent = item.categoria;
-    linha.appendChild(celulaCategoria);
+        const celulaCategoria = document.createElement("td");
+        celulaCategoria.textContent = item.categoria;
+        linha.appendChild(celulaCategoria);
 
-    const celulaData = document.createElement("td");
-    celulaData.textContent = item.data;
-    linha.appendChild(celulaData);
+        const celulaData = document.createElement("td");
+        celulaData.textContent = item.data;
+        linha.appendChild(celulaData);
 
-    const celulaValor = document.createElement("td");
-    celulaValor.textContent = item.valor;
-    linha.appendChild(celulaValor);
+        const celulaValor = document.createElement("td");
+        const valorFormatado = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(item.valor);
+        celulaValor.textContent = valorFormatado;
+        linha.appendChild(celulaValor);
 
-    const celulaExcluir = document.createElement("td");
-    celulaExcluir.className = "celulaExcluir";
+        const celulaExcluir = document.createElement("td");
+        celulaExcluir.className = "celulaExcluir";
 
-    const botaoExcluir = document.createElement("button");
-    botaoExcluir.className = "botaoExcluir";
+        const botaoExcluir = document.createElement("button");
+        botaoExcluir.className = "botaoExcluir";
 
-    // Adicionando um ícone como imagem
-    const iconeExcluir = document.createElement("img");
-    iconeExcluir.src = "./icons/trash.png"; // Caminho do ícone
-    iconeExcluir.alt = "Excluir";
-    iconeExcluir.style.width = "20px";
-    botaoExcluir.appendChild(iconeExcluir);
+        // Adicionando um ícone como imagem
+        const iconeExcluir = document.createElement("img");
+        iconeExcluir.src = "./icons/trash.png"; // Caminho do ícone
+        iconeExcluir.alt = "Excluir";
+        iconeExcluir.style.width = "20px";
+        botaoExcluir.appendChild(iconeExcluir);
 
-    // Adicionando o evento click
-    botaoExcluir.addEventListener("click", async function () {
-        const linha = botaoExcluir.parentNode.parentNode;
-        const id = linha.getAttribute("data-id"); // Obtém o ID da linha
-        console.log(`Excluindo o item com ID: ${id}`);
+        // Adicionando o evento click
+        botaoExcluir.addEventListener("click", async function () {
+            const linha = botaoExcluir.parentNode.parentNode;
+            const id = linha.getAttribute("data-id"); // Obtém o ID da linha
+            console.log(`Excluindo o item com ID: ${id}`);
 
-        // Chamar o controller via API (por exemplo, usando Fetch)
-        try {
-            const response = await fetch(`/controller/delete/${id}`, { // URL do seu endpoint
-                method: 'DELETE',
-            });
+            // Chamar o controller via API (por exemplo, usando Fetch)
+            try {
+                const response = await fetch(`../controller/delete.php/${id}`, { // URL do seu endpoint
+                    method: 'DELETE',
+                });
 
-            if (response.ok) {
-                console.log('Item deletado com sucesso!');
-                linha.parentNode.removeChild(linha); // Remove a linha da tabela
-            } else {
-                console.error('Erro ao deletar o item:', response.statusText);
+                if (response.ok) {
+                    console.log('Item deletado com sucesso!');
+                    linha.parentNode.removeChild(linha); // Remove a linha da tabela
+                } else {
+                    console.error('Erro ao deletar o item:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Erro ao conectar com o servidor:', error);
             }
-        } catch (error) {
-            console.error('Erro ao conectar com o servidor:', error);
-        }
+        });
+
+        celulaExcluir.appendChild(botaoExcluir);
+        linha.appendChild(celulaExcluir);
+
+        tabelaBody.appendChild(linha);
     });
+};
 
-    celulaExcluir.appendChild(botaoExcluir);
-    linha.appendChild(celulaExcluir);
-
-    tabelaBody.appendChild(linha);
-});
+// Atualizar tabela
+function atualizarTabela() {
+    fetch('../controller/listar.php', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        exibirTabela(data)
+    })
+    .catch(error => {
+        console.error('Erro ao chamar o controller:', error);
+    });
+};
 
 
 

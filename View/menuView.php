@@ -11,13 +11,13 @@
 
     <link rel="stylesheet" href="./css/styleAdicionar.css">
 </head>
-<body>
+<body onload="atualizarTabela()">
     <div class="menu-lateral">
         <h2>Despesitos</h2>
         <h3>Menu</h3>
         <a href="#">Adicionar</a>
         <a href="./consultaView.php">Consultar</a>
-        <a href="#">Sair</a>
+        <a href="../controller/logout.php">Sair</a>
     </div>
 
     <div class="container-esquerda">
@@ -49,7 +49,7 @@
                 <label for="valor">Valor</label>
                 <input type="number" step="0.01" id="valor" name="cx_valor" required>
 
-                <button type="submit" name="bt1">Adicionar</button>
+                <button type="submit" name="bt1" onclick="atualizarTabela()">Adicionar</button>
             </form>
         </div>
 
@@ -77,6 +77,6 @@
             </tbody>
         </table>
     </div>
-    <script src="script.js"></script>
+    <script src="script.js?v=2.0"></script>
 </body>
 </html>
