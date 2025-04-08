@@ -23,7 +23,7 @@
     <div class="container-esquerda">
         <div class="form-container">
             <h1 class="formTitle">Consultar</h1>
-            <form method="POST" action="../Controller/add.php">
+            <form method="POST" action="../Controller/totalDespesas.php">
                 <label>Mês</label>
                 <div style="display: flex; gap: 5px;">
                     <select id="mesConsulta" name="cx_mes" onchange="" required>

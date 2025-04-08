@@ -14,8 +14,8 @@
 
         $valor = $_POST['cx_valor'];
 
-        $descricaoModel = new Despesas();
-        $resultado = $descricaoModel -> adicionarDespesa($descricao, $valor, $categoria, $data, $_SESSION['cod_usuario']);
+        $despesasModel = new Despesas();
+        $resultado = $despesasModel -> adicionarDespesa($descricao, $valor, $categoria, $data, $_SESSION['cod_usuario']);
 
         // TODO: Melhorar sistema de mensagens
         if ($resultado) {
