@@ -34,43 +34,32 @@ class Despesas {
 		}
 	}
 
-	// função para listar todas as despesas
-	public function listarDespesas($cod_usuario) {
-		try {
-			// Corrige a consulta SQL
-			$sql = "SELECT * FROM despesas WHERE cod_usuario = :cod_usuario ORDER BY data DESC";
+    // função para listar todas as despesas
+    public function listarDespesas($cod_usuario) {
+        try {
+            $sql = "SELECT * FROM despesas ORDER BY data DESC";
+            $stmt = $this->db->conecta->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $erro) {
+            // Registra o erro no log
+            error_log($erro->getMessage());
+            return [];
+        }
+    }    
 
-			// Usa prepare para consultas com parâmetros
-			$stmt = $this->db->conecta->prepare($sql);
-
-			// Faz o bind do parâmetro
-			$stmt->bindParam(':cod_usuario', $cod_usuario, PDO::PARAM_INT);
-
-			// Executa a consulta
-			$stmt->execute();
-
-			// Retorna os resultados como array associativo
-			return $stmt->fetchAll(PDO::FETCH_ASSOC);
-		} catch (PDOException $erro) {
-			// Registra o erro no log
-			error_log($erro->getMessage());
-			return [];
-		}
-	}
-
-	// função para buscar despesas por categoria
-	public function buscarPorCategoria($categoria) {
-		try {
-			$sql = "SELECT * FROM despesas WHERE categoria = :categoria ORDER BY data DESC";
-			$stmt = $this->db->conecta->prepare($sql);
-			$stmt->bindParam(':categoria', $categoria);
-			$stmt->execute();
-			return $stmt->fetchAll(PDO::FETCH_ASSOC);
-		} catch (PDOException $erro) {
-			error_log($erro->getMessage());
-			return [];
-		}
-	}
+    // função para buscar despesas por categoria
+    public function buscarPorCategoria($categoria, $cod_usuario) {
+        try {
+            $sql = "SELECT * FROM despesas WHERE categoria = :categoria AND cod_usuario = :cod_usuario ORDER BY data DESC";
+            $stmt = $this->db->conecta->prepare($sql);
+            $stmt->bindParam(':categoria', $categoria);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $erro) {
+            error_log($erro->getMessage());
+            return [];
+        }
+    }
 
 	public function calcularTotalMensal($mes, $ano, $id) {
         try {
