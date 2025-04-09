@@ -2,15 +2,20 @@
     session_start();
     require_once '../model/despesasModel.php';
 
-    $mes = $_POST['cx_mes'];
-    $ano = $_POST['cx_ano'];
+    $data = json_decode(file_get_contents("php://input"), true); // Decodifica o JSON do corpo
+    $mes = $data['cx_mes'] ?? 'Todos'; // Captura os valores enviados
+    $ano = $data['cx_ano'] ?? 'Todos';
 
     $descricaoModel = new Despesas();
 
-    $totalMensal = $descricaoModel->calcularTotalMensal($mes, $ano, $_SESSION['cod_usuario']);
-
-    
+    $totalMensal = $descricaoModel->calcularTotalMensal($mes, $ano, $_SESSION['cod_usuario']);    
     $totalAnual = $descricaoModel->calcularTotalAnual($ano, $_SESSION['cod_usuario']);
 
-    // Enviar os resultados para algum lugar
+    // Transforma os dados em JSON
+    $response = [
+        "totalMes" => $totalMensal,
+        "totalAno" => $totalAnual
+    ];
+    header('Content-Type: application/json');
+    echo json_encode($response);    
 ?>

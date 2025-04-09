@@ -43,7 +43,6 @@ class Despesas {
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $erro) {
-            // Registra o erro no log
             error_log($erro->getMessage());
             return [];
         }

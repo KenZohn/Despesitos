@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="./css/styleAdicionar.css">
 </head>
-<body onload="atualizarTabela()">
+<body onload="atualizarTabela(), atualizarTotalMes()">
     <div class="menu-lateral">
         <h2>Despesitos</h2>
         <h3>Menu</h3>
@@ -56,7 +56,7 @@
         <div class="form-container">
             <form>
                 <label for="descricao">Total do mês</label>
-                <input type="text" name="" readonly>
+                <input type="text" name="cx_total_mes" readonly>
             </form>
         </div>
     </div>
@@ -78,5 +78,6 @@
         </table>
     </div>
     <script src="script.js?v=2.0"></script>
+    <script src="scriptData.js?v=2.0"></script>
 </body>
 </html>

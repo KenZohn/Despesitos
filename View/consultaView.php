@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="./css/styleAdicionar.css">
 </head>
-<body class="main-menu" onload="atualizarTabela()">
+<body class="main-menu" onload="atualizarTabela(), atualizarTotais()">
     <div class="menu-lateral">
         <h2>Despesitos</h2>
         <h3>Menu</h3>
@@ -26,7 +26,7 @@
             <form method="POST" action="../Controller/totalDespesas.php">
                 <label>Mês</label>
                 <div style="display: flex; gap: 5px;">
-                    <select id="mesConsulta" name="cx_mes" onchange="" required>
+                    <select id="mesConsulta" name="cx_mes" onchange="atualizarTotais()" required>
                         <option>Todos</option>
                         <option>1</option>
                         <option>2</option>
@@ -44,7 +44,7 @@
                 </div>
                 <label>Ano</label>
                 <div style="display: flex; gap: 5px;">
-                    <select id="anoConsulta" name="cx_ano" onchange="" required>
+                    <select id="anoConsulta" name="cx_ano" onchange="atualizarTotais()" required>
                         <option>Todos</option>
                         <option>2023</option>
                         <option>2024</option>
@@ -69,9 +69,9 @@
         <div class="form-container">
             <form>
                 <label for="descricao">Total do mês</label>
-                <input type="text" name="" readonly>
+                <input type="text" name="cx_total_mes" readonly>
                 <label for="descricao">Total do ano</label>
-                <input type="text" name="" readonly>
+                <input type="text" name="cx_total_ano" readonly>
             </form>
         </div>
     </div>
