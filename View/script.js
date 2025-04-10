@@ -37,9 +37,8 @@ function exibirTabela(dados) {
         const botaoExcluir = document.createElement("button");
         botaoExcluir.className = "botaoExcluir";
 
-        // Adicionando um ícone como imagem
         const iconeExcluir = document.createElement("img");
-        iconeExcluir.src = "./icons/trash.png"; // Caminho do ícone
+        iconeExcluir.src = "./icons/trash.png";
         iconeExcluir.alt = "Excluir";
         iconeExcluir.style.width = "20px";
         botaoExcluir.appendChild(iconeExcluir);
@@ -50,6 +49,8 @@ function exibirTabela(dados) {
             const id = linha.getAttribute("data-id"); // Obtém o ID da linha
             console.log(`Excluindo o item com ID: ${id}`);
 
+            const pageIdentifier = document.body.getAttribute("data-page");
+
             // Chamar o controller via API
             try {
                 const response = await fetch(`../controller/delete.php/${id}`, {
@@ -59,6 +60,12 @@ function exibirTabela(dados) {
                 if (response.ok) {
                     console.log('Item deletado com sucesso!');
                     linha.parentNode.removeChild(linha); // Remove a linha da tabela
+
+                    if (pageIdentifier === "paginaMenu") {
+                        atualizarTotalMes();
+                    } else if (pageIdentifier === "paginaConsulta") {
+                        atualizarTotais();
+                    }
                 } else {
                     console.error('Erro ao deletar o item:', response.statusText);
                 }
@@ -85,6 +92,56 @@ function atualizarTabela() {
     .then(response => response.json())
     .then(data => {
         exibirTabela(data)
+    })
+    .catch(error => {
+        console.error('Erro ao chamar o controller:', error);
+    });
+};
+
+// Inserir dados na tabela do perfil
+function exibirTabelaPerfil(dados) {
+    // Função para exibir os dados na tabela
+    const tabelaBody = document.querySelector("#tabela tbody");
+
+    while (tabelaBody.firstChild) {
+        tabelaBody.removeChild(tabelaBody.firstChild);
+    }
+
+    dados.forEach(item => {
+        const linha = document.createElement("tr");
+
+        // Cria células para cada propriedade
+        const celulaAno = document.createElement("td");
+        celulaAno.textContent = item.ano;
+        linha.appendChild(celulaAno);
+
+        const celulaMes = document.createElement("td");
+        celulaMes.textContent = item.mes;
+        linha.appendChild(celulaMes);
+
+        const celulaValor = document.createElement("td");
+        const valorFormatado = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(item.total_valor);
+        celulaValor.textContent = valorFormatado;
+        linha.appendChild(celulaValor);
+
+        tabelaBody.appendChild(linha);
+    });
+};
+
+// Atualizar tabela do perfil
+function atualizarTabelaPerfil() {
+    fetch('../controller/tabelaPerfil.php', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        exibirTabelaPerfil(data)
     })
     .catch(error => {
         console.error('Erro ao chamar o controller:', error);
@@ -158,6 +215,27 @@ function atualizarTotais() {
 
         if (inputTotalAno) {
             inputTotalAno.value = data.totalAno || 0; // Atualiza o total do ano
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao chamar o controller:', error);
+    });
+}
+
+function buscarNome() {
+    fetch('../controller/perfil.php', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.nome) {
+            const inputNome = document.getElementById('nome');
+            inputNome.value = data.nome;
+        } else {
+            console.error('Nome não encontrado na resposta.');
         }
     })
     .catch(error => {

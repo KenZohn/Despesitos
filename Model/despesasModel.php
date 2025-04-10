@@ -46,7 +46,21 @@ class Despesas {
             error_log($erro->getMessage());
             return [];
         }
-    }    
+    }
+
+    public function listarDespesasMes($cod_usuario) {
+        try {
+            $sql = "SELECT YEAR(data) AS ano, MONTH(data) AS mes, SUM(valor) AS total_valor FROM despesas WHERE cod_usuario = :cod_usuario
+                    GROUP BY YEAR(data), MONTH(data) ORDER BY ano, mes;";
+            $stmt = $this->db->conecta->prepare($sql);
+            $stmt->bindParam(':cod_usuario', $cod_usuario);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $erro) {
+            error_log($erro->getMessage());
+            return [];
+        }
+    }
 
     // função para buscar despesas por categoria
     public function buscarPorCategoria($categoria, $cod_usuario) {
@@ -161,6 +175,19 @@ class Despesas {
 			return false;
 		}
 	}
+
+    public function buscarNome($cod_usuario) {
+        try {
+            $sql = "SELECT nome FROM usuario WHERE cod_usuario = :cod_usuario";
+            $stmt = $this->db->conecta->prepare($sql);
+            $stmt->bindParam(':cod_usuario', $cod_usuario);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $erro) {
+            error_log($erro->getMessage());
+            return null;
+        }
+    }    
 
 }
 

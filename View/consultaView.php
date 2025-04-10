@@ -11,10 +11,11 @@
 
     <link rel="stylesheet" href="./css/styleAdicionar.css">
 </head>
-<body class="main-menu" onload="atualizarTabela(), atualizarTotais()">
+<body class="main-menu" data-page="paginaConsulta" onload="atualizarTabela(), atualizarTotais()">
     <div class="menu-lateral">
         <h2>Despesitos</h2>
         <h3>Menu</h3>
+        <a href="./perfilView.php">Perfil</a>
         <a href="./menuView.php">Adicionar</a>
         <a href="#">Consultar</a>
         <a href="../controller/logout.php">Sair</a>
