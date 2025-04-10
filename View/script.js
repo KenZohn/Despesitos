@@ -221,11 +221,13 @@ function atualizarTotais() {
     // Captura os valores selecionados
     const mes = document.getElementById('mesConsulta').value;
     const ano = document.getElementById('anoConsulta').value;
+    const categoria = document.getElementById('categoriaConsulta').value;
 
     // Cria o corpo da requisição
     const body = {
         cx_mes: mes,
-        cx_ano: ano
+        cx_ano: ano,
+        cx_categoria: categoria
     };
 
     // Faz a requisição POST

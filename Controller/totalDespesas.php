@@ -5,11 +5,12 @@
     $data = json_decode(file_get_contents("php://input"), true); // Decodifica o JSON do corpo
     $mes = $data['cx_mes'] ?? 'Todos'; // Captura os valores enviados
     $ano = $data['cx_ano'] ?? 'Todos';
+    $categoria = $data['cx_categoria'] ?? 'Todos';
 
     $descricaoModel = new Despesas();
 
-    $totalMensal = $descricaoModel->calcularTotalMensal($mes, $ano, $_SESSION['cod_usuario']);    
-    $totalAnual = $descricaoModel->calcularTotalAnual($ano, $_SESSION['cod_usuario']);
+    $totalMensal = $descricaoModel->calcularTotalMensal($mes, $ano, $categoria, $_SESSION['cod_usuario']);    
+    $totalAnual = $descricaoModel->calcularTotalAnual($ano, $categoria, $_SESSION['cod_usuario']);
 
     // Transforma os dados em JSON
     $response = [

@@ -120,7 +120,7 @@ class Despesas {
         }*/
     }
 
-	public function calcularTotalMensal($mes, $ano, $id) {
+	public function calcularTotalMensal($mes, $ano, $categoria, $id) {
         try {
             $sqlMes = "SELECT SUM(valor) AS total_mes FROM despesas WHERE cod_usuario = :id";
             
@@ -131,6 +131,9 @@ class Despesas {
                 $sqlMes .= " AND MONTH(data) = :mes";
             } elseif ($ano !== 'Todos') {
                 $sqlMes .= " AND YEAR(data) = :ano";
+            }
+            if ($categoria !== 'Todos') {
+                $sqlMes .= " AND categoria = :categoria";
             }
     
             $stmtMes = $this->db->conecta->prepare($sqlMes);
@@ -143,7 +146,10 @@ class Despesas {
             if ($ano !== 'Todos') {
                 $stmtMes->bindParam(':ano', $ano, PDO::PARAM_INT);
             }
-    
+            if ($categoria !== 'Todos') {
+                $stmtMes->bindParam(':categoria', $categoria, PDO::PARAM_STR);
+            }            
+            
             $stmtMes->execute();
             $resultMes = $stmtMes->fetch(PDO::FETCH_ASSOC);
             return $resultMes['total_mes'] ?? 0;
@@ -153,13 +159,16 @@ class Despesas {
         }
     }
 
-    public function calcularTotalAnual($ano, $id) {
+    public function calcularTotalAnual($ano, $categoria, $id) {
         try {
             $sqlAno = "SELECT SUM(valor) AS total_ano FROM despesas WHERE cod_usuario = :id";
     
             // Adiciona condição para o ano, se aplicável
             if ($ano !== 'Todos') {
                 $sqlAno .= " AND YEAR(data) = :ano";
+            }
+            if ($categoria !== 'Todos') { // Verifica explicitamente por 'Todos'
+                $sqlAno .= " AND categoria = :categoria";
             }
     
             $stmtAno = $this->db->conecta->prepare($sqlAno);
@@ -169,6 +178,9 @@ class Despesas {
             if ($ano !== 'Todos') {
                 $stmtAno->bindParam(':ano', $ano, PDO::PARAM_INT);
             }
+            if ($categoria !== 'Todos') {
+                $stmtAno->bindParam(':categoria', $categoria, PDO::PARAM_STR);
+            }            
     
             $stmtAno->execute();
             $resultAno = $stmtAno->fetch(PDO::FETCH_ASSOC);
