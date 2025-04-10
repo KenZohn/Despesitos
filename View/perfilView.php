@@ -18,6 +18,7 @@
         <a href="#">Perfil</a>
         <a href="./menuView.php">Adicionar</a>
         <a href="./consultaView.php">Consultar</a>
+        <a href="./relatorioView.php">Relatório</a>
         <a href="../controller/logout.php">Sair</a>
     </div>
 

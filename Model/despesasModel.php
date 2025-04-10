@@ -187,6 +187,19 @@ class Despesas {
             error_log($erro->getMessage());
             return null;
         }
+    }
+
+    public function buscarTotalCategoria($cod_usuario) {
+        try {
+            $sql = "SELECT categoria, SUM(valor) as valor FROM despesas WHERE cod_usuario = :cod_usuario GROUP BY categoria";
+            $stmt = $this->db->conecta->prepare($sql);
+            $stmt->bindParam(':cod_usuario', $cod_usuario);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $erro) {
+            error_log($erro->getMessage());
+            return [];
+        }
     }    
 
 }
