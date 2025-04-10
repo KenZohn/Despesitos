@@ -277,3 +277,51 @@ function buscarNome() {
         console.error('Erro ao chamar o controller:', error);
     });
 }
+
+function buscarTotalCategorias() {
+    fetch('../controller/totalCategorias.php', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Lista de categorias esperadas
+        const categorias = [
+            "alimentacao",
+            "educacao",
+            "lazer",
+            "moradia",
+            "saude",
+            "transporte",
+            "outros"
+        ];
+
+        // Inicializa todos os campos com 0
+        categorias.forEach(categoria => {
+            const inputField = document.getElementById(categoria);
+            if (inputField) {
+                inputField.value = 0; // Define como 0 por padrão
+            }
+        });
+
+        // Atualiza os campos com os dados do servidor
+        if (data.length > 0) {
+            data.forEach(item => {
+                const categoriaId = item.categoria.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+                const inputField = document.getElementById(categoriaId);
+                if (inputField) {
+                    inputField.value = item.valor !== null ? item.valor : 0; // Atualiza com o valor ou 0
+                } else {
+                    console.warn(`Categoria não reconhecida: ${item.categoria}`);
+                }
+            });                      
+        } else {
+            console.warn("Nenhum dado encontrado para as categorias.");
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao chamar o controller:', error);
+    });
+}
