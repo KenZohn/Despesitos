@@ -261,7 +261,6 @@ class Despesas {
             return [];
         }
     }
-<<<<<<< HEAD
     // função filtrar despesas está sendo usada em consultas
     public function filtrarDespesas($mes, $ano, $categoria, $cod_usuario) {
         try {
@@ -302,7 +301,4 @@ class Despesas {
     }    
     
  }        
-=======
-}
->>>>>>> cb215a3d45760edaa6792fbfa071a6817a224e5a
 ?>
