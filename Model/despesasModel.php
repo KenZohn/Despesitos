@@ -33,7 +33,8 @@ class Despesas {
 			return false;
 		}
 	}
-    // para excluir
+
+    // função para excluir
 	public function excluirDespesa($id) {
 		try {
 			$sql = "DELETE FROM despesas WHERE id = :id";
@@ -46,8 +47,7 @@ class Despesas {
 		}
 	}
 
-
-    // função para listar todas as despesas esta sendo usado no add despesas
+    // função para listar todas as despesas está sendo usado no add despesas
     public function listarDespesas($cod_usuario) {
         try {
             $sql = "SELECT * FROM despesas WHERE cod_usuario = :cod_usuario ORDER BY data DESC";
@@ -60,7 +60,8 @@ class Despesas {
             return [];
         }
     }
-    // esta sendo usado no perfil para mostrar o total de cada mes
+
+    // função listar despesa está sendo usado no perfil para mostrar o total de cada mÊs
     public function listarDespesasMes($cod_usuario) {
         try {
             $sql = "SELECT YEAR(data) AS ano, MONTH(data) AS mes, SUM(valor) AS total_valor FROM despesas WHERE cod_usuario = :cod_usuario
@@ -75,7 +76,7 @@ class Despesas {
         }
     }
 
-    // função para buscar despesas por categoria  esta sendo usado para o grafico
+    // função para buscar despesas por categoria está sendo usado para o grafico
     public function buscarPorCategoria($categoria, $cod_usuario, $data) {
         try {
            
@@ -95,31 +96,10 @@ class Despesas {
             error_log($erro->getMessage());
             return [];
         }
-           /* $sql = "SELECT categoria, SUM(valor) as total_categoria 
-                    FROM despesas 
-                    WHERE cod_usuario = :cod_usuario 
-                    AND MONTH(data) = :mes 
-                    AND YEAR(data) = :ano 
-                    GROUP BY categoria 
-                    ORDER BY total_categoria DESC";
-
-            $stmt = $this->db->conecta->prepare($sql);
-
-            // Passando os parâmetros para a consulta
-            $stmt->bindParam(':cod_usuario', $cod_usuario, PDO::PARAM_INT);
-            $stmt->bindParam(':mes', $mes, PDO::PARAM_INT);
-            $stmt->bindParam(':ano', $ano, PDO::PARAM_INT);
-
-            $stmt->execute();
-
-            // Retornando os resultados em formato de array associativo
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $erro) {
-            error_log($erro->getMessage());
-            return [];
-        }*/
+         
     }
 
+    //função para calcular o total por mes está sendo usada na tabela perfil e na consulta
 	public function calcularTotalMensal($mes, $ano, $categoria, $id) {
         try {
             $sqlMes = "SELECT SUM(valor) AS total_mes FROM despesas WHERE cod_usuario = :id";
@@ -159,6 +139,7 @@ class Despesas {
         }
     }
 
+    //função para calcular o total anual está sendo usado na consulta
     public function calcularTotalAnual($ano, $categoria, $id) {
         try {
             $sqlAno = "SELECT SUM(valor) AS total_ano FROM despesas WHERE cod_usuario = :id";
@@ -189,37 +170,9 @@ class Despesas {
             error_log($erro->getMessage());
             return 0;
         }
-    }    
-    
+    }
 
-	/*public function buscarPorMes($mes, $ano) {
-		// Valida os parâmetros fornecidos
-		if ($mes < 1 || $mes > 12 || $ano < 1900 || $ano > date('Y')) {
-			throw new InvalidArgumentException("Mês ou ano inválidos.");
-		}
-
-		try {
-			// Consulta SQL para buscar despesas por mês e ano
-			$sql = "SELECT * FROM despesas WHERE MONTH(data) = :mes AND YEAR(data) = :ano ORDER BY data DESC";
-			$stmt = $this->db->conecta->prepare($sql);
-			$stmt->bindParam(':mes', $mes, PDO::PARAM_INT);
-			$stmt->bindParam(':ano', $ano, PDO::PARAM_INT);
-			$stmt->execute();
-
-			// Recupera os resultados
-			$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-			if (empty($result)) {
-				return "Nenhuma despesa encontrada para o mês $mes/$ano.";
-			}
-
-			return $result; // Retorna as despesas encontradas
-		} catch (PDOException $erro) {
-			error_log($erro->getMessage()); // Registra o erro no log
-			return []; // Retorna um array vazio em caso de erro
-		}
-	}*/
-
+    //função buscar nome  
     public function buscarNome($cod_usuario) {
         try {
             $sql = "SELECT nome FROM usuario WHERE cod_usuario = :cod_usuario";
@@ -233,6 +186,7 @@ class Despesas {
         }
     }
 
+    //função buscar total categorias com parametros está sendo usado no grafico
     public function buscarTotalCategoria($cod_usuario, $mes = 'Todos', $ano = 'Todos') {
         try {
             $sql = "SELECT categoria, SUM(valor) AS valor 
@@ -268,37 +222,17 @@ class Despesas {
             return [];
         }
     }
-    
 
-    public function filtrarDespesas($mes, $ano, $categoria, $cod_usuario) {
+    // função buscar total categorias sem paremetros está sendo usado no perfil
+    public function buscarTotalCategorias($cod_usuario) {
         try {
-            $sql = "SELECT * FROM despesas WHERE cod_usuario = :cod_usuario";
-    
-            // Condições para o filtro
-            if ($mes !== 'Todos') {
-                $sql .= " AND MONTH(data) = :mes";
-            }
-            if ($ano !== 'Todos') {
-                $sql .= " AND YEAR(data) = :ano";
-            }
-            if ($categoria !== 'Todos') { // Verifica explicitamente por 'Todos'
-                $sql .= " AND categoria = :categoria";
-            }
-    
-            $sql .= " ORDER BY data DESC";
+            $sql = "SELECT categoria, SUM(valor) AS valor 
+                    FROM despesas 
+                    WHERE cod_usuario = :cod_usuario 
+                    GROUP BY categoria"; // Agrupa por categoria para somar os valores
     
             $stmt = $this->db->conecta->prepare($sql);
             $stmt->bindParam(':cod_usuario', $cod_usuario, PDO::PARAM_INT);
-    
-            if ($mes !== 'Todos') {
-                $stmt->bindParam(':mes', $mes, PDO::PARAM_INT);
-            }
-            if ($ano !== 'Todos') {
-                $stmt->bindParam(':ano', $ano, PDO::PARAM_INT);
-            }
-            if ($categoria !== 'Todos') { // Só vincula se for diferente de 'Todos'
-                $stmt->bindParam(':categoria', $categoria, PDO::PARAM_STR);
-            }
     
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -306,6 +240,7 @@ class Despesas {
             error_log($erro->getMessage()); // Registra o erro para depuração
             return [];
         }
-    }    
-}
+    }
+    
+ }        
 ?>
