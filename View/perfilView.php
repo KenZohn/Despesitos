@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="./css/styleAdicionar.css">
 </head>
-<body data-page="paginaMenu" onload="atualizarTabelaPerfil(), buscarNome(), buscarTotalCategorias()">
+<body data-page="paginaMenu" onload="atualizarTabelaPerfil(), buscarNome(), buscarTotalCategoria()">
     <div class="menu-lateral">
         <h2>Despesitos</h2>
         <h3>Menu</h3>
@@ -34,12 +34,12 @@
         <h3 class="formTitle">Total por categoria</h3>
             <form>
                 <div class="input-container">
-                    <img src="./icons/alimentacao.png" alt="Alimentacao">
+                    <img src="./icons/alimentacao.png" alt="Alimentação">
                     <input type="text" id="alimentacao" name="cx_alimentacao" readonly>
                 </div>
 
                 <div class="input-container">
-                    <img src="./icons/educacao.png" alt="Educacao">
+                    <img src="./icons/educacao.png" alt="Educação">
                     <input type="text" id="educacao" name="cx_educacao" readonly>
                 </div>
 
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="input-container">
-                    <img src="./icons/saude.png" alt="Saude">
+                    <img src="./icons/saude.png" alt="Saúde">
                     <input type="text" id="saude" name="cx_saude" readonly>
                 </div>
 

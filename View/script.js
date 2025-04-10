@@ -278,7 +278,7 @@ function buscarNome() {
     });
 }
 
-function buscarTotalCategorias() {
+function buscarTotalCategoria() {
     fetch('../controller/totalCategorias.php', {
         method: 'GET',
         headers: {
@@ -287,38 +287,19 @@ function buscarTotalCategorias() {
     })
     .then(response => response.json())
     .then(data => {
-        // Lista de categorias esperadas
-        const categorias = [
-            "alimentacao",
-            "educacao",
-            "lazer",
-            "moradia",
-            "saude",
-            "transporte",
-            "outros"
-        ];
-
-        // Inicializa todos os campos com 0
-        categorias.forEach(categoria => {
-            const inputField = document.getElementById(categoria);
-            if (inputField) {
-                inputField.value = 0; // Define como 0 por padrão
-            }
-        });
-
-        // Atualiza os campos com os dados do servidor
+        // Verifica se os dados estão disponíveis
         if (data.length > 0) {
             data.forEach(item => {
-                const categoriaId = item.categoria.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-                const inputField = document.getElementById(categoriaId);
+                // Usa o id correspondente para localizar o campo do input
+                const inputField = document.getElementById(item.categoria.toLowerCase());
                 if (inputField) {
-                    inputField.value = item.valor !== null ? item.valor : 0; // Atualiza com o valor ou 0
+                    inputField.value = item.valor !== null ? item.valor : 0; // Atribui o valor ao campo ou 0 se for nulo
                 } else {
-                    console.warn(`Categoria não reconhecida: ${item.categoria}`);
+                    console.warn(`Input não encontrado para a categoria: ${item.categoria}`);
                 }
-            });                      
+            });
         } else {
-            console.warn("Nenhum dado encontrado para as categorias.");
+            console.error('Nenhum dado encontrado na resposta.');
         }
     })
     .catch(error => {
