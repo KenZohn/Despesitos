@@ -96,7 +96,6 @@ class Despesas {
             error_log($erro->getMessage());
             return [];
         }
-         
     }
 
     //função para calcular o total por mes está sendo usada na tabela perfil e na consulta
@@ -223,24 +222,44 @@ class Despesas {
         }
     }
 
+    function removerAcentos($string) {
+        $unwanted = [
+            '/á|à|ã|â|ä|Á|À|Ã|Â|Ä/', 
+            '/é|è|ê|ë|É|È|Ê|Ë/', 
+            '/í|ì|î|ï|Í|Ì|Î|Ï/', 
+            '/ó|ò|õ|ô|ö|Ó|Ò|Õ|Ô|Ö/', 
+            '/ú|ù|û|ü|Ú|Ù|Û|Ü/', 
+            '/ç|Ç/'
+        ];
+        $replacement = ['a', 'e', 'i', 'o', 'u', 'c'];
+    
+        return preg_replace($unwanted, $replacement, strtolower($string));
+    }    
+    
     // função buscar total categorias sem paremetros está sendo usado no perfil
     public function buscarTotalCategorias($cod_usuario) {
         try {
             $sql = "SELECT categoria, SUM(valor) AS valor 
                     FROM despesas 
                     WHERE cod_usuario = :cod_usuario 
-                    GROUP BY categoria"; // Agrupa por categoria para somar os valores
+                    GROUP BY categoria";
     
             $stmt = $this->db->conecta->prepare($sql);
             $stmt->bindParam(':cod_usuario', $cod_usuario, PDO::PARAM_INT);
     
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            // Normaliza as categorias para evitar problemas de acentos
+            foreach ($resultado as &$row) {
+                $row['categoria'] = removerAcentos($row['categoria']);
+            }
+    
+            return $resultado;
         } catch (PDOException $erro) {
-            error_log($erro->getMessage()); // Registra o erro para depuração
+            error_log($erro->getMessage());
             return [];
         }
     }
-    
- }        
+}
 ?>

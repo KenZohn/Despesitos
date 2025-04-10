@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="./css/styleAdicionar.css">
 </head>
-<body data-page="paginaMenu" onload="atualizarTabelaPerfil(), buscarNome()">
+<body data-page="paginaMenu" onload="atualizarTabelaPerfil(), buscarNome(), buscarTotalCategorias()">
     <div class="menu-lateral">
         <h2>Despesitos</h2>
         <h3>Menu</h3>
@@ -25,9 +25,48 @@
     <div class="container-esquerda">
         <div class="form-container">
             <h1 class="formTitle">Perfil</h1>
-            <form method="POST" action="../Controller/add.php">
+            <form>
                 <label for="nome">Nome</label>
                 <input type="text" id="nome" name="cx_nome" readonly>
+            </form>
+        </div>
+        <div class="form-container">
+        <h3 class="formTitle">Total por categoria</h3>
+            <form>
+                <div class="input-container">
+                    <img src="./icons/alimentacao.png" alt="Alimentacao">
+                    <input type="text" id="alimentacao" name="cx_alimentacao" readonly>
+                </div>
+
+                <div class="input-container">
+                    <img src="./icons/educacao.png" alt="Educacao">
+                    <input type="text" id="educacao" name="cx_educacao" readonly>
+                </div>
+
+                <div class="input-container">
+                    <img src="./icons/lazer.png" alt="Lazer">
+                    <input type="text" id="lazer" name="cx_lazer" readonly>
+                </div>
+
+                <div class="input-container">
+                    <img src="./icons/moradia.png" alt="Moradia">
+                    <input type="text" id="moradia" name="cx_moradia" readonly>
+                </div>
+
+                <div class="input-container">
+                    <img src="./icons/saude.png" alt="Saude">
+                    <input type="text" id="saude" name="cx_saude" readonly>
+                </div>
+
+                <div class="input-container">
+                    <img src="./icons/transporte.png" alt="Transporte">
+                    <input type="text" id="transporte" name="cx_transporte" readonly>
+                </div>
+
+                <div class="input-container">
+                    <img src="./icons/outros.png" alt="Outros">
+                    <input type="text" id="outros" name="cx_outros" readonly>
+                </div>
             </form>
         </div>
     </div>

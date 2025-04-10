@@ -137,3 +137,23 @@ table button {
 table button:hover {
     background-color: #dcdcdc;
 }
+
+.input-container {
+    display: flex; /* Alinha os ícones e inputs lado a lado */
+    align-items: center; /* Centraliza verticalmente os itens */
+    gap: 10px; /* Espaçamento entre ícone e input */
+    margin-bottom: 15px; /* Espaçamento entre as linhas */
+}
+
+.input-container img {
+    width: 20px; /* Tamanho do ícone */
+    height: 20px; /* Tamanho do ícone */
+}
+
+.input-container input {
+    flex: 1; /* Faz com que o input ocupe todo o espaço disponível */
+    padding: 10px; /* Espaçamento interno do input */
+    border: 1px solid #ccc; /* Bordas do input */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 16px; /* Tamanho da fonte */
+}
