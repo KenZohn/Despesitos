@@ -233,11 +233,34 @@ class Despesas {
         }
     }
 
-    public function buscarTotalCategoria($cod_usuario) {
+    public function buscarTotalCategoria($cod_usuario, $mes = 'Todos', $ano = 'Todos') {
         try {
-            $sql = "SELECT categoria, SUM(valor) as valor FROM despesas WHERE cod_usuario = :cod_usuario GROUP BY categoria";
+            $sql = "SELECT categoria, SUM(valor) AS valor 
+                    FROM despesas 
+                    WHERE cod_usuario = :cod_usuario";
+    
+            // Adiciona as condições de filtro para mês e ano
+            if ($mes !== 'Todos' && $ano !== 'Todos') {
+                $sql .= " AND MONTH(data) = :mes AND YEAR(data) = :ano";
+            } elseif ($mes !== 'Todos') {
+                $sql .= " AND MONTH(data) = :mes";
+            } elseif ($ano !== 'Todos') {
+                $sql .= " AND YEAR(data) = :ano";
+            }
+    
+            $sql .= " GROUP BY categoria"; // Agrupamento por categoria
+    
             $stmt = $this->db->conecta->prepare($sql);
-            $stmt->bindParam(':cod_usuario', $cod_usuario);
+    
+            // Define os parâmetros
+            $stmt->bindParam(':cod_usuario', $cod_usuario, PDO::PARAM_INT);
+            if ($mes !== 'Todos') {
+                $stmt->bindParam(':mes', $mes, PDO::PARAM_INT);
+            }
+            if ($ano !== 'Todos') {
+                $stmt->bindParam(':ano', $ano, PDO::PARAM_INT);
+            }
+    
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $erro) {
@@ -245,6 +268,7 @@ class Despesas {
             return [];
         }
     }
+    
 
     public function filtrarDespesas($mes, $ano, $categoria, $cod_usuario) {
         try {
