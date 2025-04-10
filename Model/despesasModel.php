@@ -33,8 +33,21 @@ class Despesas {
 			return false;
 		}
 	}
+    // para excluir
+	public function excluirDespesa($id) {
+		try {
+			$sql = "DELETE FROM despesas WHERE id = :id";
+			$stmt = $this->db->conecta->prepare($sql);
+			$stmt->bindParam(':id', $id);
+			return $stmt->execute();
+		} catch (PDOException $erro) {
+			error_log($erro->getMessage());
+			return false;
+		}
+	}
 
-    // função para listar todas as despesas
+
+    // função para listar todas as despesas esta sendo usado no add despesas
     public function listarDespesas($cod_usuario) {
         try {
             $sql = "SELECT * FROM despesas WHERE cod_usuario = :cod_usuario ORDER BY data DESC";
@@ -47,7 +60,7 @@ class Despesas {
             return [];
         }
     }
-
+    // esta sendo usado no perfil para mostrar o total de cada mes
     public function listarDespesasMes($cod_usuario) {
         try {
             $sql = "SELECT YEAR(data) AS ano, MONTH(data) AS mes, SUM(valor) AS total_valor FROM despesas WHERE cod_usuario = :cod_usuario
@@ -62,10 +75,18 @@ class Despesas {
         }
     }
 
-    // função para buscar despesas por categoria
-    public function buscarPorCategoria($categoria, $cod_usuario) {
+    // função para buscar despesas por categoria  esta sendo usado para o grafico
+    public function buscarPorCategoria($categoria, $cod_usuario, $data) {
         try {
-            $sql = "SELECT * FROM despesas WHERE categoria = :categoria AND cod_usuario = :cod_usuario ORDER BY data DESC";
+           
+            $sql = "SELECT * FROM despesas 
+            WHERE categoria = :categoria 
+            AND cod_usuario = :cod_usuario 
+            AND YEAR(data) AS ano, MONTH(data) 
+            AS mes = :YEAR(data) AS ano, MONTH(data) 
+            AS mes ORDER BY data DESC";
+
+
             $stmt = $this->db->conecta->prepare($sql);
             $stmt->bindParam(':categoria', $categoria);
             $stmt->execute();
@@ -74,6 +95,29 @@ class Despesas {
             error_log($erro->getMessage());
             return [];
         }
+           /* $sql = "SELECT categoria, SUM(valor) as total_categoria 
+                    FROM despesas 
+                    WHERE cod_usuario = :cod_usuario 
+                    AND MONTH(data) = :mes 
+                    AND YEAR(data) = :ano 
+                    GROUP BY categoria 
+                    ORDER BY total_categoria DESC";
+
+            $stmt = $this->db->conecta->prepare($sql);
+
+            // Passando os parâmetros para a consulta
+            $stmt->bindParam(':cod_usuario', $cod_usuario, PDO::PARAM_INT);
+            $stmt->bindParam(':mes', $mes, PDO::PARAM_INT);
+            $stmt->bindParam(':ano', $ano, PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            // Retornando os resultados em formato de array associativo
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $erro) {
+            error_log($erro->getMessage());
+            return [];
+        }*/
     }
 
 	public function calcularTotalMensal($mes, $ano, $id) {
@@ -136,7 +180,7 @@ class Despesas {
     }    
     
 
-	public function buscarPorMes($mes, $ano) {
+	/*public function buscarPorMes($mes, $ano) {
 		// Valida os parâmetros fornecidos
 		if ($mes < 1 || $mes > 12 || $ano < 1900 || $ano > date('Y')) {
 			throw new InvalidArgumentException("Mês ou ano inválidos.");
@@ -162,19 +206,7 @@ class Despesas {
 			error_log($erro->getMessage()); // Registra o erro no log
 			return []; // Retorna um array vazio em caso de erro
 		}
-	}
-	// para excluir
-	public function excluirDespesa($id) {
-		try {
-			$sql = "DELETE FROM despesas WHERE id = :id";
-			$stmt = $this->db->conecta->prepare($sql);
-			$stmt->bindParam(':id', $id);
-			return $stmt->execute();
-		} catch (PDOException $erro) {
-			error_log($erro->getMessage());
-			return false;
-		}
-	}
+	}*/
 
     public function buscarNome($cod_usuario) {
         try {
