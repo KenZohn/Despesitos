@@ -98,6 +98,39 @@ function atualizarTabela() {
     });
 };
 
+// Filtrar tabela em mês, ano e categoria
+function filtrarTabela() {
+    // Obtendo os valores dos selectboxes
+    const mes = document.getElementById('mesConsulta').value;
+    const ano = document.getElementById('anoConsulta').value;
+    const categoria = document.getElementById('categoriaConsulta').value;
+
+    // Criando o objeto a ser enviado
+    const filtro = {
+        cx_mes: mes,
+        cx_ano: ano,
+        cx_categoria: categoria
+    };
+
+    // Fazendo a requisição ao controller
+    fetch('../controller/filtrar.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(filtro) // Enviando os dados como JSON
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Exibir os dados na tabela
+        exibirTabela(data);
+    })
+    .catch(error => {
+        console.error('Erro ao chamar o controller:', error);
+    });
+}
+
+
 // Inserir dados na tabela do perfil
 function exibirTabelaPerfil(dados) {
     // Função para exibir os dados na tabela

@@ -205,7 +205,7 @@ class Despesas {
     public function filtrarDespesas($mes, $ano, $categoria, $cod_usuario) {
         try {
             $sql = "SELECT * FROM despesas WHERE cod_usuario = :cod_usuario";
-
+    
             // Condições para o filtro
             if ($mes !== 'Todos') {
                 $sql .= " AND MONTH(data) = :mes";
@@ -213,31 +213,31 @@ class Despesas {
             if ($ano !== 'Todos') {
                 $sql .= " AND YEAR(data) = :ano";
             }
-            if (!empty($categoria)) {
+            if ($categoria !== 'Todos') { // Verifica explicitamente por 'Todos'
                 $sql .= " AND categoria = :categoria";
             }
-
+    
             $sql .= " ORDER BY data DESC";
-
+    
             $stmt = $this->db->conecta->prepare($sql);
             $stmt->bindParam(':cod_usuario', $cod_usuario, PDO::PARAM_INT);
-
+    
             if ($mes !== 'Todos') {
                 $stmt->bindParam(':mes', $mes, PDO::PARAM_INT);
             }
             if ($ano !== 'Todos') {
                 $stmt->bindParam(':ano', $ano, PDO::PARAM_INT);
             }
-            if (!empty($categoria)) {
+            if ($categoria !== 'Todos') { // Só vincula se for diferente de 'Todos'
                 $stmt->bindParam(':categoria', $categoria, PDO::PARAM_STR);
             }
-
+    
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $erro) {
-            error_log($erro->getMessage());
+            error_log($erro->getMessage()); // Registra o erro para depuração
             return [];
         }
-    }
+    }    
 }
 ?>

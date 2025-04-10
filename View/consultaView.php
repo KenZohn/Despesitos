@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="./css/styleAdicionar.css">
 </head>
-<body class="main-menu" data-page="paginaConsulta" onload="atualizarTabela(), atualizarTotais()">
+<body class="main-menu" data-page="paginaConsulta" onload="filtrarTabela(), atualizarTotais()">
     <div class="menu-lateral">
         <h2>Despesitos</h2>
         <h3>Menu</h3>
@@ -25,10 +25,10 @@
     <div class="container-esquerda">
         <div class="form-container">
             <h1 class="formTitle">Consultar</h1>
-            <form method="POST" action="../Controller/totalDespesas.php">
+            <form>
                 <label>Mês</label>
                 <div style="display: flex; gap: 5px;">
-                    <select id="mesConsulta" name="cx_mes" onchange="atualizarTotais()" required>
+                    <select id="mesConsulta" name="cx_mes" onchange="filtrarTabela(), atualizarTotais()" required>
                         <option>Todos</option>
                         <option>1</option>
                         <option>2</option>
@@ -46,7 +46,7 @@
                 </div>
                 <label>Ano</label>
                 <div style="display: flex; gap: 5px;">
-                    <select id="anoConsulta" name="cx_ano" onchange="atualizarTotais()" required>
+                    <select id="anoConsulta" name="cx_ano" onchange="filtrarTabela(), atualizarTotais()" required>
                         <option>Todos</option>
                         <option>2023</option>
                         <option>2024</option>
@@ -55,7 +55,7 @@
                     </select>
                 </div>
                 <label for="categoria">Categoria</label>
-                <select id="categoriaConsulta" name="cx_categoria" onchange="" required>
+                <select id="categoriaConsulta" name="cx_categoria" onchange="filtrarTabela(), atualizarTotais()" required>
                     <option>Todos</option>
                     <option>Alimentação</option>
                     <option>Educação</option>
