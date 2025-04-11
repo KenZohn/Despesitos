@@ -8,23 +8,27 @@ require_once '../controller/sessionCheck.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Perfil</title>
+
     <link rel="stylesheet" href="./css/styleEditarPerfil.css">
-</head>
-<body>
+
+    <link rel="stylesheet" href="./css/styleAdicionar.css">
+    
+</head> 
+<body class="main-menu">
     <div class="menu-lateral">
         <h2>Despesitos</h2>
         <h3>Menu</h3>
         <a href="./perfilView.php">Perfil</a>
-        <a href="./editarPerfilView.php">Editar Perfil</a>
-        <a href="#">Adicionar</a>
+        <a href="#">Editar Perfil</a>
+        <a href="./menuView.php">Adicionar</a>
         <a href="./consultaView.php">Consultar</a>
         <a href="./relatorioView.php">Relatório</a>
         <a href="../controller/logout.php">Sair</a>
     </div>
 
     <div class="container">
-        <h1>Editar Perfil</h1>
         <form method="POST" action="../controller/AtualizarPerfil.php">
+            <h1>Editar Perfil</h1>
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="nome" required>
 

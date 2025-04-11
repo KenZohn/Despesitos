@@ -16,6 +16,7 @@
         <h2>Despesitos</h2>
         <h3>Menu</h3>
         <a href="./perfilView.php">Perfil</a>
+        <a href="./editarPerfilView.php">Editar Perfil</a>
         <a href="./menuView.php">Adicionar</a>
         <a href="#">Consultar</a>
         <a href="./relatorioView.php">Relatório</a>
