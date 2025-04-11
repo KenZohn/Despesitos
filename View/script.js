@@ -333,3 +333,39 @@ function buscarTotalCategorias() {
         console.error('Erro ao chamar o controller:', error);
     });
 }
+document.getElementById('editarPerfilForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evita o recarregamento da página
+
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
+
+    // Envia os dados via fetch para o back-end
+    fetch('../controller/EditarPerfil.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nome, email, senha })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.sucesso) {
+            alert('Perfil atualizado com sucesso!');
+            // Armazena o novo nome no localStorage para usar na tela de perfil
+            localStorage.setItem('novo_nome', data.novo_nome);
+            window.location.href = './perfilView.php'; // Redireciona para a tela de perfil
+        } else {
+            alert('Erro ao atualizar perfil: ' + data.mensagem);
+        }
+    })
+    .catch(error => console.error('Erro:', error));
+});
+document.addEventListener('DOMContentLoaded', function() {
+    const novoNome = localStorage.getItem('novo_nome');
+    if (novoNome) {
+        document.getElementById('nome').value = novoNome; // Atualiza o campo "Nome"
+        localStorage.removeItem('novo_nome'); // Limpa o localStorage após o uso
+    }
+});
+

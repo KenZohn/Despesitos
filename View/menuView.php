@@ -16,11 +16,13 @@
         <h2>Despesitos</h2>
         <h3>Menu</h3>
         <a href="./perfilView.php">Perfil</a>
+        <a href="./editarPerfilView.php">Editar Perfil</a> <!-- Novo link -->
         <a href="#">Adicionar</a>
         <a href="./consultaView.php">Consultar</a>
         <a href="./relatorioView.php">Relatório</a>
         <a href="../controller/logout.php">Sair</a>
     </div>
+
 
     <div class="container-esquerda">
         <div class="form-container">
