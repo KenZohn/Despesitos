@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="./css/styleAdicionar.css">
 </head>
-<body data-page="paginaMenu" onload="atualizarTabelaPerfil(), buscarNome(), buscarTotalCategoria()">
+<body data-page="paginaMenu" onload="atualizarTabelaPerfil(), buscarNome(), buscarTotalCategorias()">
     <div class="menu-lateral">
         <h2>Despesitos</h2>
         <h3>Menu</h3>

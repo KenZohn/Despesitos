@@ -185,7 +185,7 @@ function atualizarTabelaPerfil() {
 function atualizarTotalMes() {
     // Captura os valores selecionados
     const hoje = new Date();
-    const mesAtual = hoje.getMonth() + 1;
+    const mesAtual = hoje.getMonth() + 1; // Meses começam em 0, por isso +1
     const anoAtual = hoje.getFullYear(); // Ano atual
 
     // Cria o corpo da requisição
@@ -204,17 +204,25 @@ function atualizarTotalMes() {
     })
     .then(response => response.json())
     .then(data => {
-        // Atualiza os campos de entrada com os valores retornados
+        // Função para formatar números como moeda brasileira
+        const formatCurrency = value => new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(value);
+
+        // Atualiza os campos de entrada com os valores formatados
         const inputTotalMes = document.querySelector('input[name="cx_total_mes"]');
         
         if (inputTotalMes) {
-            inputTotalMes.value = data.totalMes || 0; // Atualiza o total do mês
+            // Formata o valor antes de atualizar o campo
+            inputTotalMes.value = formatCurrency(data.totalMes || 0);
         }
     })
     .catch(error => {
         console.error('Erro ao chamar o controller:', error);
     });
 }
+
 
 // Atualizar o total do mês e ano
 function atualizarTotais() {
@@ -240,22 +248,31 @@ function atualizarTotais() {
     })
     .then(response => response.json())
     .then(data => {
-        // Atualiza os campos de entrada com os valores retornados
+        // Função para formatar números como moeda brasileira
+        const formatCurrency = value => new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(value);
+
+        // Atualiza os campos de entrada com os valores formatados
         const inputTotalMes = document.querySelector('input[name="cx_total_mes"]');
         const inputTotalAno = document.querySelector('input[name="cx_total_ano"]');
-        
+
         if (inputTotalMes) {
-            inputTotalMes.value = data.totalMes || 0; // Atualiza o total do mês
+            // Formata o valor antes de atualizar o campo
+            inputTotalMes.value = formatCurrency(data.totalMes || 0);
         }
 
         if (inputTotalAno) {
-            inputTotalAno.value = data.totalAno || 0; // Atualiza o total do ano
+            // Formata o valor antes de atualizar o campo
+            inputTotalAno.value = formatCurrency(data.totalAno || 0);
         }
     })
     .catch(error => {
         console.error('Erro ao chamar o controller:', error);
     });
 }
+
 
 function buscarNome() {
     fetch('../controller/perfil.php', {
@@ -278,7 +295,7 @@ function buscarNome() {
     });
 }
 
-function buscarTotalCategoria() {
+function buscarTotalCategorias() {
     fetch('../controller/totalCategorias.php', {
         method: 'GET',
         headers: {
@@ -287,19 +304,29 @@ function buscarTotalCategoria() {
     })
     .then(response => response.json())
     .then(data => {
-        // Verifica se os dados estão disponíveis
+        // Função para normalizar strings (remoção de acentos e caracteres especiais)
+        const normalizeString = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+        // Função para formatar números como moeda brasileira
+        const formatCurrency = value => new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(value);
+
+        // Atualiza os campos com os dados do servidor
         if (data.length > 0) {
             data.forEach(item => {
-                // Usa o id correspondente para localizar o campo do input
-                const inputField = document.getElementById(item.categoria.toLowerCase());
+                const categoriaId = normalizeString(item.categoria); // Normaliza a categoria
+                const inputField = document.getElementById(categoriaId);
                 if (inputField) {
-                    inputField.value = item.valor !== null ? item.valor : 0; // Atribui o valor ao campo ou 0 se for nulo
+                    // Formata o valor antes de atribuí-lo ao campo
+                    inputField.value = item.valor !== null ? formatCurrency(item.valor) : formatCurrency(0);
                 } else {
-                    console.warn(`Input não encontrado para a categoria: ${item.categoria}`);
+                    console.warn(`Categoria não reconhecida: ${item.categoria}`);
                 }
             });
         } else {
-            console.error('Nenhum dado encontrado na resposta.');
+            console.warn("Nenhum dado encontrado para as categorias.");
         }
     })
     .catch(error => {

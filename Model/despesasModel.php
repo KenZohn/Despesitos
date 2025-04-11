@@ -1,6 +1,20 @@
 <?php
 require_once 'Database.php';
 
+function removerAcentos($string) {
+    $unwanted = [
+        '/á|à|ã|â|ä|Á|À|Ã|Â|Ä/', 
+        '/é|è|ê|ë|É|È|Ê|Ë/', 
+        '/í|ì|î|ï|Í|Ì|Î|Ï/', 
+        '/ó|ò|õ|ô|ö|Ó|Ò|Õ|Ô|Ö/', 
+        '/ú|ù|û|ü|Ú|Ù|Û|Ü/', 
+        '/ç|Ç/'
+    ];
+    $replacement = ['a', 'e', 'i', 'o', 'u', 'c'];
+
+    return preg_replace($unwanted, $replacement, strtolower($string));
+}
+
 class Despesas {
 	private $db;
 
@@ -229,18 +243,31 @@ class Despesas {
             $sql = "SELECT categoria, SUM(valor) AS valor 
                     FROM despesas 
                     WHERE cod_usuario = :cod_usuario 
-                    GROUP BY categoria"; // Agrupa por categoria para somar os valores
+                    GROUP BY categoria";
     
             $stmt = $this->db->conecta->prepare($sql);
             $stmt->bindParam(':cod_usuario', $cod_usuario, PDO::PARAM_INT);
     
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            foreach ($resultado as &$row) {
+                $row['categoria'] = removerAcentos(strtolower($row['categoria']));
+            }
+    
+            // Retorna o resultado como JSON
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($resultado);
+            exit; // Garante que nada mais será enviado ao cliente
         } catch (PDOException $erro) {
-            error_log($erro->getMessage()); // Registra o erro para depuração
-            return [];
+            error_log("Erro ao buscar categorias: " . $erro->getMessage());
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['error' => 'Erro no servidor']);
+            exit;
         }
     }
+    
+    
     // função filtrar despesas está sendo usada em consultas
     public function filtrarDespesas($mes, $ano, $categoria, $cod_usuario) {
         try {
@@ -278,7 +305,6 @@ class Despesas {
             error_log($erro->getMessage()); // Registra o erro para depuração
             return [];
         }
-    }    
-    
+    }
  }        
 ?>
